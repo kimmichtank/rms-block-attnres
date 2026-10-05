@@ -1,0 +1,1078 @@
+[
+  {
+    "iteration_directory": "iter_0004770",
+    "entries": [
+      {
+        "name": "__30_0.distcp",
+        "bytes": 865414668
+      },
+      {
+        "name": "__53_0.distcp",
+        "bytes": 871131899
+      },
+      {
+        "name": "__17_0.distcp",
+        "bytes": 875092445
+      },
+      {
+        "name": "__50_0.distcp",
+        "bytes": 871136630
+      },
+      {
+        "name": "__7_0.distcp",
+        "bytes": 869843257
+      },
+      {
+        "name": "__1_0.distcp",
+        "bytes": 1143444582
+      },
+      {
+        "name": "__52_0.distcp",
+        "bytes": 871131899
+      },
+      {
+        "name": "__55_0.distcp",
+        "bytes": 871150823
+      },
+      {
+        "name": "__9_0.distcp",
+        "bytes": 869847988
+      },
+      {
+        "name": "__12_0.distcp",
+        "bytes": 875064059
+      },
+      {
+        "name": "__13_0.distcp",
+        "bytes": 875064059
+      },
+      {
+        "name": "__27_0.distcp",
+        "bytes": 875068790
+      },
+      {
+        "name": "__58_0.distcp",
+        "bytes": 871075127
+      },
+      {
+        "name": "__42_0.distcp",
+        "bytes": 871136630
+      },
+      {
+        "name": "__14_0.distcp",
+        "bytes": 875087714
+      },
+      {
+        "name": "__35_0.distcp",
+        "bytes": 871136630
+      },
+      {
+        "name": "__63_0.distcp",
+        "bytes": 871075127
+      },
+      {
+        "name": "__62_0.distcp",
+        "bytes": 871075127
+      },
+      {
+        "name": "__44_0.distcp",
+        "bytes": 871131899
+      },
+      {
+        "name": "__41_0.distcp",
+        "bytes": 871160285
+      },
+      {
+        "name": "__23_0.distcp",
+        "bytes": 875087714
+      },
+      {
+        "name": "__43_0.distcp",
+        "bytes": 871136630
+      },
+      {
+        "name": "__38_0.distcp",
+        "bytes": 871155554
+      },
+      {
+        "name": "__56_0.distcp",
+        "bytes": 871165016
+      },
+      {
+        "name": "__61_0.distcp",
+        "bytes": 871075127
+      },
+      {
+        "name": ".metadata",
+        "bytes": 527718
+      },
+      {
+        "name": "__11_0.distcp",
+        "bytes": 875068790
+      },
+      {
+        "name": "__3_0.distcp",
+        "bytes": 869824333
+      },
+      {
+        "name": "__21_0.distcp",
+        "bytes": 875064059
+      },
+      {
+        "name": "__28_0.distcp",
+        "bytes": 865361050
+      },
+      {
+        "name": "__36_0.distcp",
+        "bytes": 871131899
+      },
+      {
+        "name": "__19_0.distcp",
+        "bytes": 875068790
+      },
+      {
+        "name": "__15_0.distcp",
+        "bytes": 875087714
+      },
+      {
+        "name": "__48_0.distcp",
+        "bytes": 871165016
+      },
+      {
+        "name": "__18_0.distcp",
+        "bytes": 875068790
+      },
+      {
+        "name": "__51_0.distcp",
+        "bytes": 871136630
+      },
+      {
+        "name": "__0_0.distcp",
+        "bytes": 1143661644
+      },
+      {
+        "name": "__4_0.distcp",
+        "bytes": 869819602
+      },
+      {
+        "name": "__24_0.distcp",
+        "bytes": 875092445
+      },
+      {
+        "name": "__10_0.distcp",
+        "bytes": 875068790
+      },
+      {
+        "name": "__2_0.distcp",
+        "bytes": 869824333
+      },
+      {
+        "name": "__47_0.distcp",
+        "bytes": 871150823
+      },
+      {
+        "name": "__37_0.distcp",
+        "bytes": 871131899
+      },
+      {
+        "name": "__16_0.distcp",
+        "bytes": 875092445
+      },
+      {
+        "name": "__29_0.distcp",
+        "bytes": 864576722
+      },
+      {
+        "name": "__31_0.distcp",
+        "bytes": 864600377
+      },
+      {
+        "name": "__26_0.distcp",
+        "bytes": 875068790
+      },
+      {
+        "name": "__39_0.distcp",
+        "bytes": 871155554
+      },
+      {
+        "name": "__34_0.distcp",
+        "bytes": 871136630
+      },
+      {
+        "name": "__54_0.distcp",
+        "bytes": 871150823
+      },
+      {
+        "name": "__6_0.distcp",
+        "bytes": 869843257
+      },
+      {
+        "name": "__22_0.distcp",
+        "bytes": 875087714
+      },
+      {
+        "name": "__57_0.distcp",
+        "bytes": 871165016
+      },
+      {
+        "name": "__40_0.distcp",
+        "bytes": 871160285
+      },
+      {
+        "name": "__60_0.distcp",
+        "bytes": 871075127
+      },
+      {
+        "name": "__45_0.distcp",
+        "bytes": 871131899
+      },
+      {
+        "name": "metadata.json",
+        "bytes": 63
+      },
+      {
+        "name": "__32_0.distcp",
+        "bytes": 871160285
+      },
+      {
+        "name": "__59_0.distcp",
+        "bytes": 871075127
+      },
+      {
+        "name": "__5_0.distcp",
+        "bytes": 869819602
+      },
+      {
+        "name": "__20_0.distcp",
+        "bytes": 875064059
+      },
+      {
+        "name": "__49_0.distcp",
+        "bytes": 871165016
+      },
+      {
+        "name": "__25_0.distcp",
+        "bytes": 875092445
+      },
+      {
+        "name": "__33_0.distcp",
+        "bytes": 871160285
+      },
+      {
+        "name": "__46_0.distcp",
+        "bytes": 871150823
+      },
+      {
+        "name": "__8_0.distcp",
+        "bytes": 869847988
+      }
+    ]
+  },
+  {
+    "iteration_directory": "iter_0009537",
+    "entries": [
+      {
+        "name": "__30_0.distcp",
+        "bytes": 865414668
+      },
+      {
+        "name": "__53_0.distcp",
+        "bytes": 871131899
+      },
+      {
+        "name": "__17_0.distcp",
+        "bytes": 875092445
+      },
+      {
+        "name": "__50_0.distcp",
+        "bytes": 871136630
+      },
+      {
+        "name": "__7_0.distcp",
+        "bytes": 869843257
+      },
+      {
+        "name": "__1_0.distcp",
+        "bytes": 1143444582
+      },
+      {
+        "name": "__52_0.distcp",
+        "bytes": 871131899
+      },
+      {
+        "name": "__55_0.distcp",
+        "bytes": 871150823
+      },
+      {
+        "name": "__9_0.distcp",
+        "bytes": 869847988
+      },
+      {
+        "name": "__12_0.distcp",
+        "bytes": 875064059
+      },
+      {
+        "name": "__13_0.distcp",
+        "bytes": 875064059
+      },
+      {
+        "name": "__27_0.distcp",
+        "bytes": 875068790
+      },
+      {
+        "name": "__58_0.distcp",
+        "bytes": 871075127
+      },
+      {
+        "name": "__42_0.distcp",
+        "bytes": 871136630
+      },
+      {
+        "name": "__14_0.distcp",
+        "bytes": 875087714
+      },
+      {
+        "name": "__35_0.distcp",
+        "bytes": 871136630
+      },
+      {
+        "name": "__63_0.distcp",
+        "bytes": 871075127
+      },
+      {
+        "name": "__62_0.distcp",
+        "bytes": 871075127
+      },
+      {
+        "name": "__44_0.distcp",
+        "bytes": 871131899
+      },
+      {
+        "name": "__41_0.distcp",
+        "bytes": 871160285
+      },
+      {
+        "name": "__23_0.distcp",
+        "bytes": 875087714
+      },
+      {
+        "name": "__43_0.distcp",
+        "bytes": 871136630
+      },
+      {
+        "name": "__38_0.distcp",
+        "bytes": 871155554
+      },
+      {
+        "name": "__56_0.distcp",
+        "bytes": 871165016
+      },
+      {
+        "name": "__61_0.distcp",
+        "bytes": 871075127
+      },
+      {
+        "name": ".metadata",
+        "bytes": 527718
+      },
+      {
+        "name": "__11_0.distcp",
+        "bytes": 875068790
+      },
+      {
+        "name": "__3_0.distcp",
+        "bytes": 869824333
+      },
+      {
+        "name": "__21_0.distcp",
+        "bytes": 875064059
+      },
+      {
+        "name": "__28_0.distcp",
+        "bytes": 865361050
+      },
+      {
+        "name": "__36_0.distcp",
+        "bytes": 871131899
+      },
+      {
+        "name": "__19_0.distcp",
+        "bytes": 875068790
+      },
+      {
+        "name": "__15_0.distcp",
+        "bytes": 875087714
+      },
+      {
+        "name": "__48_0.distcp",
+        "bytes": 871165016
+      },
+      {
+        "name": "__18_0.distcp",
+        "bytes": 875068790
+      },
+      {
+        "name": "__51_0.distcp",
+        "bytes": 871136630
+      },
+      {
+        "name": "__0_0.distcp",
+        "bytes": 1143661644
+      },
+      {
+        "name": "__4_0.distcp",
+        "bytes": 869819602
+      },
+      {
+        "name": "__24_0.distcp",
+        "bytes": 875092445
+      },
+      {
+        "name": "__10_0.distcp",
+        "bytes": 875068790
+      },
+      {
+        "name": "__2_0.distcp",
+        "bytes": 869824333
+      },
+      {
+        "name": "__47_0.distcp",
+        "bytes": 871150823
+      },
+      {
+        "name": "__37_0.distcp",
+        "bytes": 871131899
+      },
+      {
+        "name": "__16_0.distcp",
+        "bytes": 875092445
+      },
+      {
+        "name": "__29_0.distcp",
+        "bytes": 864576722
+      },
+      {
+        "name": "__31_0.distcp",
+        "bytes": 864600377
+      },
+      {
+        "name": "__26_0.distcp",
+        "bytes": 875068790
+      },
+      {
+        "name": "__39_0.distcp",
+        "bytes": 871155554
+      },
+      {
+        "name": "__34_0.distcp",
+        "bytes": 871136630
+      },
+      {
+        "name": "__54_0.distcp",
+        "bytes": 871150823
+      },
+      {
+        "name": "__6_0.distcp",
+        "bytes": 869843257
+      },
+      {
+        "name": "__22_0.distcp",
+        "bytes": 875087714
+      },
+      {
+        "name": "__57_0.distcp",
+        "bytes": 871165016
+      },
+      {
+        "name": "__40_0.distcp",
+        "bytes": 871160285
+      },
+      {
+        "name": "__60_0.distcp",
+        "bytes": 871075127
+      },
+      {
+        "name": "__45_0.distcp",
+        "bytes": 871131899
+      },
+      {
+        "name": "metadata.json",
+        "bytes": 63
+      },
+      {
+        "name": "__32_0.distcp",
+        "bytes": 871160285
+      },
+      {
+        "name": "__59_0.distcp",
+        "bytes": 871075127
+      },
+      {
+        "name": "__5_0.distcp",
+        "bytes": 869819602
+      },
+      {
+        "name": "__20_0.distcp",
+        "bytes": 875064059
+      },
+      {
+        "name": "__49_0.distcp",
+        "bytes": 871165016
+      },
+      {
+        "name": "__25_0.distcp",
+        "bytes": 875092445
+      },
+      {
+        "name": "__33_0.distcp",
+        "bytes": 871160285
+      },
+      {
+        "name": "__46_0.distcp",
+        "bytes": 871150823
+      },
+      {
+        "name": "__8_0.distcp",
+        "bytes": 869847988
+      }
+    ]
+  },
+  {
+    "iteration_directory": "iter_0007155",
+    "entries": [
+      {
+        "name": "__30_0.distcp",
+        "bytes": 865414668
+      },
+      {
+        "name": "__53_0.distcp",
+        "bytes": 871131899
+      },
+      {
+        "name": "__17_0.distcp",
+        "bytes": 875092445
+      },
+      {
+        "name": "__50_0.distcp",
+        "bytes": 871136630
+      },
+      {
+        "name": "__7_0.distcp",
+        "bytes": 869843257
+      },
+      {
+        "name": "__1_0.distcp",
+        "bytes": 1143444582
+      },
+      {
+        "name": "__52_0.distcp",
+        "bytes": 871131899
+      },
+      {
+        "name": "__55_0.distcp",
+        "bytes": 871150823
+      },
+      {
+        "name": "__9_0.distcp",
+        "bytes": 869847988
+      },
+      {
+        "name": "__12_0.distcp",
+        "bytes": 875064059
+      },
+      {
+        "name": "__13_0.distcp",
+        "bytes": 875064059
+      },
+      {
+        "name": "__27_0.distcp",
+        "bytes": 875068790
+      },
+      {
+        "name": "__58_0.distcp",
+        "bytes": 871075127
+      },
+      {
+        "name": "__42_0.distcp",
+        "bytes": 871136630
+      },
+      {
+        "name": "__14_0.distcp",
+        "bytes": 875087714
+      },
+      {
+        "name": "__35_0.distcp",
+        "bytes": 871136630
+      },
+      {
+        "name": "__63_0.distcp",
+        "bytes": 871075127
+      },
+      {
+        "name": "__62_0.distcp",
+        "bytes": 871075127
+      },
+      {
+        "name": "__44_0.distcp",
+        "bytes": 871131899
+      },
+      {
+        "name": "__41_0.distcp",
+        "bytes": 871160285
+      },
+      {
+        "name": "__23_0.distcp",
+        "bytes": 875087714
+      },
+      {
+        "name": "__43_0.distcp",
+        "bytes": 871136630
+      },
+      {
+        "name": "__38_0.distcp",
+        "bytes": 871155554
+      },
+      {
+        "name": "__56_0.distcp",
+        "bytes": 871165016
+      },
+      {
+        "name": "__61_0.distcp",
+        "bytes": 871075127
+      },
+      {
+        "name": ".metadata",
+        "bytes": 527718
+      },
+      {
+        "name": "__11_0.distcp",
+        "bytes": 875068790
+      },
+      {
+        "name": "__3_0.distcp",
+        "bytes": 869824333
+      },
+      {
+        "name": "__21_0.distcp",
+        "bytes": 875064059
+      },
+      {
+        "name": "__28_0.distcp",
+        "bytes": 865361050
+      },
+      {
+        "name": "__36_0.distcp",
+        "bytes": 871131899
+      },
+      {
+        "name": "__19_0.distcp",
+        "bytes": 875068790
+      },
+      {
+        "name": "__15_0.distcp",
+        "bytes": 875087714
+      },
+      {
+        "name": "__48_0.distcp",
+        "bytes": 871165016
+      },
+      {
+        "name": "__18_0.distcp",
+        "bytes": 875068790
+      },
+      {
+        "name": "__51_0.distcp",
+        "bytes": 871136630
+      },
+      {
+        "name": "__0_0.distcp",
+        "bytes": 1143661644
+      },
+      {
+        "name": "__4_0.distcp",
+        "bytes": 869819602
+      },
+      {
+        "name": "__24_0.distcp",
+        "bytes": 875092445
+      },
+      {
+        "name": "__10_0.distcp",
+        "bytes": 875068790
+      },
+      {
+        "name": "__2_0.distcp",
+        "bytes": 869824333
+      },
+      {
+        "name": "__47_0.distcp",
+        "bytes": 871150823
+      },
+      {
+        "name": "__37_0.distcp",
+        "bytes": 871131899
+      },
+      {
+        "name": "__16_0.distcp",
+        "bytes": 875092445
+      },
+      {
+        "name": "__29_0.distcp",
+        "bytes": 864576722
+      },
+      {
+        "name": "__31_0.distcp",
+        "bytes": 864600377
+      },
+      {
+        "name": "__26_0.distcp",
+        "bytes": 875068790
+      },
+      {
+        "name": "__39_0.distcp",
+        "bytes": 871155554
+      },
+      {
+        "name": "__34_0.distcp",
+        "bytes": 871136630
+      },
+      {
+        "name": "__54_0.distcp",
+        "bytes": 871150823
+      },
+      {
+        "name": "__6_0.distcp",
+        "bytes": 869843257
+      },
+      {
+        "name": "__22_0.distcp",
+        "bytes": 875087714
+      },
+      {
+        "name": "__57_0.distcp",
+        "bytes": 871165016
+      },
+      {
+        "name": "__40_0.distcp",
+        "bytes": 871160285
+      },
+      {
+        "name": "__60_0.distcp",
+        "bytes": 871075127
+      },
+      {
+        "name": "__45_0.distcp",
+        "bytes": 871131899
+      },
+      {
+        "name": "metadata.json",
+        "bytes": 63
+      },
+      {
+        "name": "__32_0.distcp",
+        "bytes": 871160285
+      },
+      {
+        "name": "__59_0.distcp",
+        "bytes": 871075127
+      },
+      {
+        "name": "__5_0.distcp",
+        "bytes": 869819602
+      },
+      {
+        "name": "__20_0.distcp",
+        "bytes": 875064059
+      },
+      {
+        "name": "__49_0.distcp",
+        "bytes": 871165016
+      },
+      {
+        "name": "__25_0.distcp",
+        "bytes": 875092445
+      },
+      {
+        "name": "__33_0.distcp",
+        "bytes": 871160285
+      },
+      {
+        "name": "__46_0.distcp",
+        "bytes": 871150823
+      },
+      {
+        "name": "__8_0.distcp",
+        "bytes": 869847988
+      }
+    ]
+  },
+  {
+    "iteration_directory": "iter_0002385",
+    "entries": [
+      {
+        "name": "__30_0.distcp",
+        "bytes": 865414668
+      },
+      {
+        "name": "__53_0.distcp",
+        "bytes": 871131899
+      },
+      {
+        "name": "__17_0.distcp",
+        "bytes": 875092445
+      },
+      {
+        "name": "__50_0.distcp",
+        "bytes": 871136630
+      },
+      {
+        "name": "__7_0.distcp",
+        "bytes": 869843257
+      },
+      {
+        "name": "__1_0.distcp",
+        "bytes": 1143444582
+      },
+      {
+        "name": "__52_0.distcp",
+        "bytes": 871131899
+      },
+      {
+        "name": "__55_0.distcp",
+        "bytes": 871150823
+      },
+      {
+        "name": "__9_0.distcp",
+        "bytes": 869847988
+      },
+      {
+        "name": "__12_0.distcp",
+        "bytes": 875064059
+      },
+      {
+        "name": "__13_0.distcp",
+        "bytes": 875064059
+      },
+      {
+        "name": "__27_0.distcp",
+        "bytes": 875068790
+      },
+      {
+        "name": "__58_0.distcp",
+        "bytes": 871075127
+      },
+      {
+        "name": "__42_0.distcp",
+        "bytes": 871136630
+      },
+      {
+        "name": "__14_0.distcp",
+        "bytes": 875087714
+      },
+      {
+        "name": "__35_0.distcp",
+        "bytes": 871136630
+      },
+      {
+        "name": "__63_0.distcp",
+        "bytes": 871075127
+      },
+      {
+        "name": "__62_0.distcp",
+        "bytes": 871075127
+      },
+      {
+        "name": "__44_0.distcp",
+        "bytes": 871131899
+      },
+      {
+        "name": "__41_0.distcp",
+        "bytes": 871160285
+      },
+      {
+        "name": "__23_0.distcp",
+        "bytes": 875087714
+      },
+      {
+        "name": "__43_0.distcp",
+        "bytes": 871136630
+      },
+      {
+        "name": "__38_0.distcp",
+        "bytes": 871155554
+      },
+      {
+        "name": "__56_0.distcp",
+        "bytes": 871165016
+      },
+      {
+        "name": "__61_0.distcp",
+        "bytes": 871075127
+      },
+      {
+        "name": ".metadata",
+        "bytes": 527718
+      },
+      {
+        "name": "__11_0.distcp",
+        "bytes": 875068790
+      },
+      {
+        "name": "__3_0.distcp",
+        "bytes": 869824333
+      },
+      {
+        "name": "__21_0.distcp",
+        "bytes": 875064059
+      },
+      {
+        "name": "__28_0.distcp",
+        "bytes": 865361050
+      },
+      {
+        "name": "__36_0.distcp",
+        "bytes": 871131899
+      },
+      {
+        "name": "__19_0.distcp",
+        "bytes": 875068790
+      },
+      {
+        "name": "__15_0.distcp",
+        "bytes": 875087714
+      },
+      {
+        "name": "__48_0.distcp",
+        "bytes": 871165016
+      },
+      {
+        "name": "__18_0.distcp",
+        "bytes": 875068790
+      },
+      {
+        "name": "__51_0.distcp",
+        "bytes": 871136630
+      },
+      {
+        "name": "__0_0.distcp",
+        "bytes": 1143661644
+      },
+      {
+        "name": "__4_0.distcp",
+        "bytes": 869819602
+      },
+      {
+        "name": "__24_0.distcp",
+        "bytes": 875092445
+      },
+      {
+        "name": "__10_0.distcp",
+        "bytes": 875068790
+      },
+      {
+        "name": "__2_0.distcp",
+        "bytes": 869824333
+      },
+      {
+        "name": "__47_0.distcp",
+        "bytes": 871150823
+      },
+      {
+        "name": "__37_0.distcp",
+        "bytes": 871131899
+      },
+      {
+        "name": "__16_0.distcp",
+        "bytes": 875092445
+      },
+      {
+        "name": "__29_0.distcp",
+        "bytes": 864576722
+      },
+      {
+        "name": "__31_0.distcp",
+        "bytes": 864600377
+      },
+      {
+        "name": "__26_0.distcp",
+        "bytes": 875068790
+      },
+      {
+        "name": "__39_0.distcp",
+        "bytes": 871155554
+      },
+      {
+        "name": "__34_0.distcp",
+        "bytes": 871136630
+      },
+      {
+        "name": "__54_0.distcp",
+        "bytes": 871150823
+      },
+      {
+        "name": "__6_0.distcp",
+        "bytes": 869843257
+      },
+      {
+        "name": "__22_0.distcp",
+        "bytes": 875087714
+      },
+      {
+        "name": "__57_0.distcp",
+        "bytes": 871165016
+      },
+      {
+        "name": "__40_0.distcp",
+        "bytes": 871160285
+      },
+      {
+        "name": "__60_0.distcp",
+        "bytes": 871075127
+      },
+      {
+        "name": "__45_0.distcp",
+        "bytes": 871131899
+      },
+      {
+        "name": "metadata.json",
+        "bytes": 63
+      },
+      {
+        "name": "__32_0.distcp",
+        "bytes": 871160285
+      },
+      {
+        "name": "__59_0.distcp",
+        "bytes": 871075127
+      },
+      {
+        "name": "__5_0.distcp",
+        "bytes": 869819602
+      },
+      {
+        "name": "__20_0.distcp",
+        "bytes": 875064059
+      },
+      {
+        "name": "__49_0.distcp",
+        "bytes": 871165016
+      },
+      {
+        "name": "__25_0.distcp",
+        "bytes": 875092445
+      },
+      {
+        "name": "__33_0.distcp",
+        "bytes": 871160285
+      },
+      {
+        "name": "__46_0.distcp",
+        "bytes": 871150823
+      },
+      {
+        "name": "__8_0.distcp",
+        "bytes": 869847988
+      }
+    ]
+  }
+]

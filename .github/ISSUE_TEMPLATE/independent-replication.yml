@@ -1,0 +1,36 @@
+name: Independent replication
+description: Report a matched study, including positive, null, negative or failed results.
+title: "[Replication] Model size / corpus / token budget"
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Please report all attempted arms, not only the best run. Do not include credentials, private hostnames, personal paths or private data. Missing controls and interrupted runs are useful information.
+  - type: textarea
+    id: setup
+    attributes:
+      label: Architecture, data and execution
+      description: Parameter count; backbone and code commit; public dataset/tokenizer revisions; sequence length; effective labels or token positions; seeds; global/micro batch and accumulation; accelerator topology; optimizer/LR schedule; precision and checkpointing.
+    validations:
+      required: true
+  - type: textarea
+    id: variants
+    attributes:
+      label: Four variants and normalization policy
+      description: Which of Full, Full+RMS, Block and RMS Block ran? Specify block size in sublayer outputs, Key/Value affine gain and epsilon, embedding/final-read policy, and raw versus normalized pending blocks. Declare deviations explicitly.
+    validations:
+      required: true
+  - type: textarea
+    id: evidence
+    attributes:
+      label: Results and traceable evidence
+      description: Link public config, per-seed curves, final metric files, checkpoint hashes and evaluation protocol. Distinguish validation/test and intermediate/final. State how the comparison step was selected; do not submit only the best checkpoint.
+    validations:
+      required: true
+  - type: textarea
+    id: limitations
+    attributes:
+      label: Matching, failures and interpretation
+      description: Data-order/initialization/execution differences; resumes/failures; missing arms; uncertainty across seeds; throughput/memory if measured. What would you conclude, and what would you not conclude?
+    validations:
+      required: true

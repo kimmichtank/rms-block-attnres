@@ -1,0 +1,20 @@
+{
+  "source_id": "157m_block/train.jsonl",
+  "rows": 74992,
+  "unique_steps": 74992,
+  "repeated_steps": 0,
+  "last": {
+    "step": 74992,
+    "tokens": 3200000000,
+    "nll": 3.0901429232749194,
+    "lr": 2.9999999999999997e-05,
+    "grad_norm": 1.2873307466506958,
+    "seconds": 0.3724304363131523,
+    "tokens_per_second": 56461.55080171518,
+    "peak_allocated": 10984090112,
+    "peak_reserved": 14998831104
+  },
+  "last1000_step_mean_nll": 3.0709003077733077,
+  "resumed": false,
+  "selection": "Last occurrence per step; selected rows are not an extra training pass."
+}

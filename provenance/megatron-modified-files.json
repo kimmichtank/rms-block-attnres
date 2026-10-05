@@ -1,0 +1,41 @@
+{
+  "megatron/core/distributed/distributed_data_parallel.py": {
+    "sha256": "450890833dc5a73846c61dc176d59002040abdef9ebae8d0368b59811eb93981"
+  },
+  "megatron/core/distributed/param_and_grad_buffer.py": {
+    "sha256": "36a05c70821cdeff4f5855fbb3e7e1994fcc6017aa19390bfa01712a48558384"
+  },
+  "megatron/core/models/gpt/gpt_model.py": {
+    "sha256": "030af867506ebf94f463862393691394371f46a7752e351dbc7ce7a52473adb8"
+  },
+  "megatron/core/tensor_parallel/layers.py": {
+    "sha256": "575fb0687f2d0e609ab20d4c4e05c1651dbe387e5bd0cde08366217b93bfb22e"
+  },
+  "megatron/core/transformer/multi_latent_attention.py": {
+    "sha256": "61c8307a8ed12cd6a7a0ab3d4e3b004a2323cdd3ded841f414302aa9aad41441"
+  },
+  "megatron/core/transformer/torch_norm.py": {
+    "sha256": "07931a569127050427ef32c472d274f77aed8764f829aba1a3ae5383b92c6a6c"
+  },
+  "megatron/core/transformer/transformer_block.py": {
+    "sha256": "79cef03f53b313686a3348cb5d690ef141d446a2d750fcadaa1591054477af01"
+  },
+  "megatron/core/transformer/transformer_config.py": {
+    "sha256": "440d4c599d95905ac51b29e46972db5c2c0539a161298c2b8066077ca2516d08"
+  },
+  "megatron/core/transformer/transformer_layer.py": {
+    "sha256": "ee43b24ee5769c7335370641e0d798fcf79c34134b1997d4d509d7650b1e4ec2"
+  },
+  "megatron/training/training.py": {
+    "sha256": "b98bf39f64ad04a2c62d0deff23a8bff39709fa38dc6081df02b14b584239fcf"
+  },
+  "model_provider.py": {
+    "sha256": "d41d490ae98aa45b80b0b0fc6a3bdb955edf801eb3337fbea75efd0675c92ca4"
+  },
+  "megatron/core/transformer/attention_residuals.py": {
+    "sha256": "caaa47b49cb7ca195fda07db9e6d3c7e0cf67f15540fb62116e11e2488898dc3"
+  },
+  "examples/attention_residuals/qwen3_spec.py": {
+    "sha256": "82ba4e6e168b3f74551443c58f2491cad5633057faed5c25e8b3586249b20f86"
+  }
+}

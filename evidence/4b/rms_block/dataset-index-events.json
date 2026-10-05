@@ -1,0 +1,38 @@
+[
+  {
+    "line": 894,
+    "text": "> initializing torch distributed ..."
+  },
+  {
+    "line": 2266,
+    "text": "INFO:megatron.core.datasets.gpt_dataset:\tLoad the document index from 41c40b891c63fd53ee416e5c074c91bc-GPTDataset-train-document_index.npy"
+  },
+  {
+    "line": 2267,
+    "text": "INFO:megatron.core.datasets.gpt_dataset:\tLoad the sample index from 41c40b891c63fd53ee416e5c074c91bc-GPTDataset-train-sample_index.npy"
+  },
+  {
+    "line": 2268,
+    "text": "INFO:megatron.core.datasets.gpt_dataset:\tLoad the shuffle index from 41c40b891c63fd53ee416e5c074c91bc-GPTDataset-train-shuffle_index.npy"
+  },
+  {
+    "line": 2269,
+    "text": "INFO:megatron.core.datasets.gpt_dataset:> total number of samples: 41168305"
+  },
+  {
+    "line": 2271,
+    "text": "INFO:megatron.core.datasets.gpt_dataset:\tLoad the document index from 7329a71eea7e0557360fc67f7c42eeb3-GPTDataset-valid-document_index.npy"
+  },
+  {
+    "line": 2272,
+    "text": "INFO:megatron.core.datasets.gpt_dataset:\tLoad the sample index from 7329a71eea7e0557360fc67f7c42eeb3-GPTDataset-valid-sample_index.npy"
+  },
+  {
+    "line": 2273,
+    "text": "INFO:megatron.core.datasets.gpt_dataset:\tLoad the shuffle index from 7329a71eea7e0557360fc67f7c42eeb3-GPTDataset-valid-shuffle_index.npy"
+  },
+  {
+    "line": 2274,
+    "text": "INFO:megatron.core.datasets.gpt_dataset:> total number of samples: 840103"
+  }
+]

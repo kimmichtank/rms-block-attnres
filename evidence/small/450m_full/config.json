@@ -1,0 +1,41 @@
+{
+  "prepared": "data/prepared-450m",
+  "native_source": "models/brujula-450m",
+  "variant": "full",
+  "width": 1280,
+  "layers": 28,
+  "heads": 8,
+  "seq_len": 1024,
+  "batch_size": 16,
+  "accumulation": 1,
+  "train_tokens": 10000000000,
+  "eval_tokens": 5000000,
+  "lr": 0.0003,
+  "warmup_fraction": 0.02,
+  "seed": 42,
+  "save_every": 250,
+  "eval_every": 500,
+  "device": "cuda",
+  "no_checkpointing": false,
+  "publisher_config": true,
+  "tokenizer_source": "Sakatepon/Brujula-150M-32K-chat",
+  "world": 4,
+  "global_batch": 64,
+  "steps": 234011,
+  "effective_train_labels": 10000000000,
+  "data_fingerprint": {
+    "train": "4386376feb88437326d8a287a4515dc8b065c201a048971523fd9332620014d1",
+    "validation": "76ebc1d4a086ee574c2af408260ec96c46b70ec027e8ae853b3fcd753532dc00",
+    "test": "3c355b9461f73f17603edd37e53800452943f453ff3a7796226f23f8a442a096"
+  },
+  "prepared_config_sha256": "9d0378b20bb61dcb56d15dbb08289e5e9a065c0207691e48ccafe2f36b617ce5",
+  "native_code": {
+    "configuration_brujula_v2.py": "8f390a63a127cd1bfce9659f467a9d51e13e859f6fa8fd33655da865cee6525e",
+    "modeling_brujula_v2.py": "b158503a5ed86e5a43c442a78f98b12902a1d6c65542ce06819e01ba92e8074b"
+  },
+  "training_code": {
+    "train_pretrain.py": "60b4f71a1b6cc15ce414153b47d40346e0839e05d7bac5ed517bd847e9798473",
+    "pretrain_core.py": "9d1f2b45a0111e38f2b398af1d4f5e0ea9bb3ee2e6a69a036af97ee49c52e8e7",
+    "acp_common.py": "6f8bc259986647805e1424c62aa7925b6f8575be619a3395a358d7c219ab5eb3"
+  }
+}

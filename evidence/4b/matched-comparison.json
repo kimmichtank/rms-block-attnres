@@ -1,0 +1,50 @@
+{
+  "status": "verified_last_scheduled_validation_after_target_stop",
+  "selected_step": 9500,
+  "selection_rule": "Largest common logged validation step in the original completed target-budget runs; not a best-checkpoint selection.",
+  "token_positions": 19922944000,
+  "validation_token_positions_per_call": 20971520,
+  "schedule_token_positions": 100000595968,
+  "stop_token_positions": 20000538624,
+  "rows": [
+    {
+      "run_id": "block",
+      "variant": "block",
+      "step": 9500,
+      "token_positions": 19922944000,
+      "nll": 2.978657,
+      "ppl": 19.6614,
+      "source_id": "4b_07_block/log1-completed-audit",
+      "line": 97635
+    },
+    {
+      "run_id": "full",
+      "variant": "full",
+      "step": 9500,
+      "token_positions": 19922944000,
+      "nll": 2.954836,
+      "ppl": 19.19858,
+      "source_id": "4b_08_full/log2-completed-audit",
+      "line": 97635
+    },
+    {
+      "run_id": "rms_block",
+      "variant": "rms_block",
+      "step": 9500,
+      "token_positions": 19922944000,
+      "nll": 2.932211,
+      "ppl": 18.76909,
+      "source_id": "4b_09_rms_block/log2-completed-audit",
+      "line": 97635
+    }
+  ],
+  "equal_runtime_arguments_except": [
+    "attention_residual_type",
+    "save",
+    "tensorboard_dir"
+  ],
+  "independent_test_split": false,
+  "full_rms_present": false,
+  "evaluation": "Last scheduled online validation before all three target-stop exits; rolling validation matches across variants only at equal step. No fresh checkpoint evaluation.",
+  "dataset_provenance": "Shared DCLM indexed shard/cache verified; original download revision and exact public reconstruction unverified."
+}

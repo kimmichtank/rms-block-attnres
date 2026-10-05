@@ -1,0 +1,12 @@
+{
+  "torch": "2.7.0",
+  "cuda": "12.8",
+  "python": "3.12.3",
+  "devices_per_node": 8,
+  "device": "PPU-ZW810",
+  "nodes": 8,
+  "TP": 2,
+  "DP": 32,
+  "PP": 1,
+  "CP": 1
+}

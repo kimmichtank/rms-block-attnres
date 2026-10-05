@@ -1,0 +1,22 @@
+[
+  {
+    "line": 894,
+    "text": "> initializing torch distributed ..."
+  },
+  {
+    "line": 2266,
+    "text": "INFO:megatron.core.datasets.gpt_dataset:> total number of samples: 41168305"
+  },
+  {
+    "line": 2267,
+    "text": "INFO:megatron.core.datasets.gpt_dataset:> total number of epochs: 1"
+  },
+  {
+    "line": 2269,
+    "text": "INFO:megatron.core.datasets.gpt_dataset:> total number of samples: 840103"
+  },
+  {
+    "line": 2270,
+    "text": "INFO:megatron.core.datasets.gpt_dataset:> total number of epochs: 1"
+  }
+]

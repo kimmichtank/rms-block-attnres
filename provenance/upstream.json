@@ -1,0 +1,29 @@
+{
+  "brujula": {
+    "repository": "https://huggingface.co/Sakatepon/Brujula-150M-32K-chat",
+    "revision": "f9c4fb962203259992e847217f49cca3412e4f19",
+    "license": "Apache-2.0"
+  },
+  "brujula_450m": {
+    "repository": "https://huggingface.co/Sakatepon/Brujula-450M",
+    "revision": "34b867723047c12b30144d7a256554705e20f858",
+    "license": "Apache-2.0",
+    "use": "Architecture/config provenance only; no pretrained weights loaded or redistributed"
+  },
+  "megatron": {
+    "repository": "https://github.com/NVIDIA/Megatron-LM",
+    "commit": "64d156734918e73238de5cad6d97dcfaa6ec1005",
+    "license": "BSD-3-Clause unless otherwise noted; bundled notices retained"
+  },
+  "megatron_reference": {
+    "repository": "https://github.com/Smu-Tan/Megatron-LM",
+    "commit": "acd397827e4629abbd8bc8e5372292f4951fe5a1",
+    "license": "BSD-3-Clause unless otherwise noted; bundled notices retained"
+  },
+  "attention_residuals": {
+    "repository": "https://github.com/MoonshotAI/Attention-Residuals",
+    "paper": "https://arxiv.org/abs/2603.15031",
+    "redistributed": false,
+    "reason": "No explicit code license visible at audit; reference only."
+  }
+}

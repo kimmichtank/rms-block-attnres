@@ -1,0 +1,32 @@
+{
+  "class": "GPTDataset",
+  "dataset_path": "<LOCAL_PATH_23cd0dc475ff>",
+  "num_samples": 12207104,
+  "index_split": "train",
+  "random_seed": 42,
+  "sequence_length": 8192,
+  "split": "98,2,0",
+  "split_matrix": [
+    [
+      0,
+      0.98
+    ],
+    [
+      0.98,
+      1.0
+    ],
+    null
+  ],
+  "tokenizer": {
+    "class": "megatron.core.tokenizers.text.text_tokenizer.MegatronTokenizerText",
+    "tokenizer_path": "<LOCAL_PATH_f2bd18c573cf>",
+    "chat_template": "None",
+    "vocab_file": "None",
+    "merges_file": "None",
+    "additional_special_tokens": "[]",
+    "use_fast": "True",
+    "trust_remote_code": "False",
+    "include_special_tokens": "True",
+    "use_gigatoken": "False"
+  }
+}

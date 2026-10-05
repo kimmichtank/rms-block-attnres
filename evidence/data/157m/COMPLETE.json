@@ -1,0 +1,12 @@
+{
+  "counts": {
+    "train": 3203079065,
+    "test": 5004717,
+    "validation": 5005030
+  },
+  "labels": {
+    "train": 3200000000,
+    "test": 5000000,
+    "validation": 5000000
+  }
+}

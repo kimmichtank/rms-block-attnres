@@ -1,0 +1,22 @@
+{
+  "repo": "HuggingFaceFW/fineweb-edu",
+  "revision": "87f09149ef4734204d70ed1d046ddc9ca3f2b8f9",
+  "tokenizer": "<LOCAL_PATH_12f293f981be>",
+  "tokenizer_sha256": {
+    "tokenizer.json": "1fe93b6152957cf9cfd6d89002467f789ce8b3f3e000b3a2edf27c808ddd0b9e",
+    "tokenizer_config.json": "17e312e0087310b49a0884cd2c9c96876dee84a7dd9ccced056abf98331f0f25"
+  },
+  "targets": {
+    "train": 1000000000,
+    "validation": 5000000,
+    "test": 5000000
+  },
+  "max_files": 4,
+  "data": "<LOCAL_PATH_37e6fb0701cc>",
+  "code_sha256": "e92872cd78de7070f8a43423442ee063195019f125eec3201c5a94edb7cdaee2",
+  "exclusions": {
+    "<LOCAL_PATH_64faa969fb30>": "e754e75206d8696e606a5cf54204aadee954f70d5e8359ef1849466982e362b6",
+    "<LOCAL_PATH_32230eeac610>": "946e2ef7f2981e4b59314f8c794292fa73e94f1efd698a1f724485a78b9d256c"
+  },
+  "split": "nfkc-whitespace-sha256-v1"
+}

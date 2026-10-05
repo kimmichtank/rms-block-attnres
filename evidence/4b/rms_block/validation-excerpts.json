@@ -1,0 +1,192 @@
+[
+  {
+    "source_id": "4b_09_rms_block/log2-completed-audit",
+    "line": 4912,
+    "text": "validation loss at iteration 250 | lm loss value: 5.797712E+00 | lm loss PPL: 3.295446E+02 |"
+  },
+  {
+    "source_id": "4b_09_rms_block/log2-completed-audit",
+    "line": 7417,
+    "text": "validation loss at iteration 500 | lm loss value: 4.668382E+00 | lm loss PPL: 1.065252E+02 |"
+  },
+  {
+    "source_id": "4b_09_rms_block/log2-completed-audit",
+    "line": 9922,
+    "text": "validation loss at iteration 750 | lm loss value: 4.032046E+00 | lm loss PPL: 5.637613E+01 |"
+  },
+  {
+    "source_id": "4b_09_rms_block/log2-completed-audit",
+    "line": 12427,
+    "text": "validation loss at iteration 1000 | lm loss value: 3.761922E+00 | lm loss PPL: 4.303104E+01 |"
+  },
+  {
+    "source_id": "4b_09_rms_block/log2-completed-audit",
+    "line": 14932,
+    "text": "validation loss at iteration 1250 | lm loss value: 3.619593E+00 | lm loss PPL: 3.732238E+01 |"
+  },
+  {
+    "source_id": "4b_09_rms_block/log2-completed-audit",
+    "line": 17437,
+    "text": "validation loss at iteration 1500 | lm loss value: 3.523670E+00 | lm loss PPL: 3.390864E+01 |"
+  },
+  {
+    "source_id": "4b_09_rms_block/log2-completed-audit",
+    "line": 19942,
+    "text": "validation loss at iteration 1750 | lm loss value: 3.446679E+00 | lm loss PPL: 3.139595E+01 |"
+  },
+  {
+    "source_id": "4b_09_rms_block/log2-completed-audit",
+    "line": 22447,
+    "text": "validation loss at iteration 2000 | lm loss value: 3.390008E+00 | lm loss PPL: 2.966620E+01 |"
+  },
+  {
+    "source_id": "4b_09_rms_block/log2-completed-audit",
+    "line": 24952,
+    "text": "validation loss at iteration 2250 | lm loss value: 3.343409E+00 | lm loss PPL: 2.831550E+01 |"
+  },
+  {
+    "source_id": "4b_09_rms_block/log2-completed-audit",
+    "line": 27491,
+    "text": "validation loss at iteration 2500 | lm loss value: 3.303207E+00 | lm loss PPL: 2.719974E+01 |"
+  },
+  {
+    "source_id": "4b_09_rms_block/log2-completed-audit",
+    "line": 29996,
+    "text": "validation loss at iteration 2750 | lm loss value: 3.264168E+00 | lm loss PPL: 2.615833E+01 |"
+  },
+  {
+    "source_id": "4b_09_rms_block/log2-completed-audit",
+    "line": 32501,
+    "text": "validation loss at iteration 3000 | lm loss value: 3.235006E+00 | lm loss PPL: 2.540653E+01 |"
+  },
+  {
+    "source_id": "4b_09_rms_block/log2-completed-audit",
+    "line": 35006,
+    "text": "validation loss at iteration 3250 | lm loss value: 3.213635E+00 | lm loss PPL: 2.486932E+01 |"
+  },
+  {
+    "source_id": "4b_09_rms_block/log2-completed-audit",
+    "line": 37511,
+    "text": "validation loss at iteration 3500 | lm loss value: 3.184891E+00 | lm loss PPL: 2.416466E+01 |"
+  },
+  {
+    "source_id": "4b_09_rms_block/log2-completed-audit",
+    "line": 40016,
+    "text": "validation loss at iteration 3750 | lm loss value: 3.172828E+00 | lm loss PPL: 2.387491E+01 |"
+  },
+  {
+    "source_id": "4b_09_rms_block/log2-completed-audit",
+    "line": 42521,
+    "text": "validation loss at iteration 4000 | lm loss value: 3.146129E+00 | lm loss PPL: 2.324590E+01 |"
+  },
+  {
+    "source_id": "4b_09_rms_block/log2-completed-audit",
+    "line": 45026,
+    "text": "validation loss at iteration 4250 | lm loss value: 3.131171E+00 | lm loss PPL: 2.290077E+01 |"
+  },
+  {
+    "source_id": "4b_09_rms_block/log2-completed-audit",
+    "line": 47531,
+    "text": "validation loss at iteration 4500 | lm loss value: 3.115521E+00 | lm loss PPL: 2.254518E+01 |"
+  },
+  {
+    "source_id": "4b_09_rms_block/log2-completed-audit",
+    "line": 50036,
+    "text": "validation loss at iteration 4750 | lm loss value: 3.092339E+00 | lm loss PPL: 2.202854E+01 |"
+  },
+  {
+    "source_id": "4b_09_rms_block/log2-completed-audit",
+    "line": 52543,
+    "text": "validation loss at iteration 5000 | lm loss value: 3.084628E+00 | lm loss PPL: 2.185933E+01 |"
+  },
+  {
+    "source_id": "4b_09_rms_block/log2-completed-audit",
+    "line": 55048,
+    "text": "validation loss at iteration 5250 | lm loss value: 3.070174E+00 | lm loss PPL: 2.154566E+01 |"
+  },
+  {
+    "source_id": "4b_09_rms_block/log2-completed-audit",
+    "line": 57553,
+    "text": "validation loss at iteration 5500 | lm loss value: 3.053439E+00 | lm loss PPL: 2.118808E+01 |"
+  },
+  {
+    "source_id": "4b_09_rms_block/log2-completed-audit",
+    "line": 60058,
+    "text": "validation loss at iteration 5750 | lm loss value: 3.042111E+00 | lm loss PPL: 2.094942E+01 |"
+  },
+  {
+    "source_id": "4b_09_rms_block/log2-completed-audit",
+    "line": 62563,
+    "text": "validation loss at iteration 6000 | lm loss value: 3.044167E+00 | lm loss PPL: 2.099254E+01 |"
+  },
+  {
+    "source_id": "4b_09_rms_block/log2-completed-audit",
+    "line": 65068,
+    "text": "validation loss at iteration 6250 | lm loss value: 3.023398E+00 | lm loss PPL: 2.056104E+01 |"
+  },
+  {
+    "source_id": "4b_09_rms_block/log2-completed-audit",
+    "line": 67573,
+    "text": "validation loss at iteration 6500 | lm loss value: 3.018726E+00 | lm loss PPL: 2.046519E+01 |"
+  },
+  {
+    "source_id": "4b_09_rms_block/log2-completed-audit",
+    "line": 70078,
+    "text": "validation loss at iteration 6750 | lm loss value: 3.005415E+00 | lm loss PPL: 2.019460E+01 |"
+  },
+  {
+    "source_id": "4b_09_rms_block/log2-completed-audit",
+    "line": 72583,
+    "text": "validation loss at iteration 7000 | lm loss value: 3.001415E+00 | lm loss PPL: 2.011399E+01 |"
+  },
+  {
+    "source_id": "4b_09_rms_block/log2-completed-audit",
+    "line": 75090,
+    "text": "validation loss at iteration 7250 | lm loss value: 2.990360E+00 | lm loss PPL: 1.989284E+01 |"
+  },
+  {
+    "source_id": "4b_09_rms_block/log2-completed-audit",
+    "line": 77595,
+    "text": "validation loss at iteration 7500 | lm loss value: 2.978861E+00 | lm loss PPL: 1.966540E+01 |"
+  },
+  {
+    "source_id": "4b_09_rms_block/log2-completed-audit",
+    "line": 80100,
+    "text": "validation loss at iteration 7750 | lm loss value: 2.977099E+00 | lm loss PPL: 1.963078E+01 |"
+  },
+  {
+    "source_id": "4b_09_rms_block/log2-completed-audit",
+    "line": 82605,
+    "text": "validation loss at iteration 8000 | lm loss value: 2.961344E+00 | lm loss PPL: 1.932392E+01 |"
+  },
+  {
+    "source_id": "4b_09_rms_block/log2-completed-audit",
+    "line": 85110,
+    "text": "validation loss at iteration 8250 | lm loss value: 2.962469E+00 | lm loss PPL: 1.934567E+01 |"
+  },
+  {
+    "source_id": "4b_09_rms_block/log2-completed-audit",
+    "line": 87615,
+    "text": "validation loss at iteration 8500 | lm loss value: 2.957196E+00 | lm loss PPL: 1.924393E+01 |"
+  },
+  {
+    "source_id": "4b_09_rms_block/log2-completed-audit",
+    "line": 90120,
+    "text": "validation loss at iteration 8750 | lm loss value: 2.949757E+00 | lm loss PPL: 1.910132E+01 |"
+  },
+  {
+    "source_id": "4b_09_rms_block/log2-completed-audit",
+    "line": 92625,
+    "text": "validation loss at iteration 9000 | lm loss value: 2.938093E+00 | lm loss PPL: 1.887980E+01 |"
+  },
+  {
+    "source_id": "4b_09_rms_block/log2-completed-audit",
+    "line": 95130,
+    "text": "validation loss at iteration 9250 | lm loss value: 2.938317E+00 | lm loss PPL: 1.888403E+01 |"
+  },
+  {
+    "source_id": "4b_09_rms_block/log2-completed-audit",
+    "line": 97635,
+    "text": "validation loss at iteration 9500 | lm loss value: 2.932211E+00 | lm loss PPL: 1.876909E+01 |"
+  }
+]

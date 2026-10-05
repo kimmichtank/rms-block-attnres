@@ -1,0 +1,35 @@
+{
+  "scope": "Original step 1-9537 runs only; continuation logs are excluded.",
+  "tokens_per_step": 2097152,
+  "stable_interval": {
+    "first_step": 101,
+    "last_step": 9537,
+    "records_per_run": 9437
+  },
+  "block": {
+    "source_id": "4b_block_original_train_log",
+    "source_sha256": "fd42ef7c6dad123a41364681a23f4f2496af21c286a9db67deea4b0c32d4f497",
+    "median_step_ms": 15199.8,
+    "mean_step_ms": 15255.216604853238,
+    "trimmed_mean_step_ms_1pct_each_tail": 15253.212433776625,
+    "p05_step_ms": 15188.7,
+    "p95_step_ms": 15434.1
+  },
+  "rms_block": {
+    "source_id": "4b_rms_block_original_train_log",
+    "source_sha256": "ba48474b50bdaa67bae9c46e1e67f16f4cc6d6cf02295878352c9c8e3e820cff",
+    "median_step_ms": 15598.1,
+    "mean_step_ms": 15642.985705202924,
+    "trimmed_mean_step_ms_1pct_each_tail": 15640.780581684507,
+    "p05_step_ms": 15592.3,
+    "p95_step_ms": 15837.7
+  },
+  "method": "Parse every Megatron iteration record, discard steps 1-100 as startup warm-up, and summarize elapsed time per iteration. Tokens per second use global batch 256 times sequence length 8192.",
+  "time_to_loss_method": "Find the first downward crossing of a target validation NLL and linearly interpolate between adjacent 250-step evaluations. Estimate training-only time as interpolated step multiplied by the run's stable median step time.",
+  "limitations": [
+    "Validation uses an advancing iterator; only equal-step evaluations use the same validation batches.",
+    "Interpolated crossing steps are estimates rather than measured checkpoints.",
+    "Step timing excludes validation, checkpointing, launch, and queue time.",
+    "This is time-to-quality on the matched 64-device setup, not a hardware-normalized FLOP count."
+  ]
+}

@@ -1,0 +1,899 @@
+diff --git a/megatron/core/distributed/distributed_data_parallel.py b/megatron/core/distributed/distributed_data_parallel.py
+index d9ebb3a..7e978e6 100644
+--- a/megatron/core/distributed/distributed_data_parallel.py
++++ b/megatron/core/distributed/distributed_data_parallel.py
+@@ -1,6 +1,8 @@
+ # Copyright (c) 2024, NVIDIA CORPORATION. All rights reserved.
+ 
+ import logging
++import math
++import os
+ import weakref
+ from contextlib import contextmanager
+ from typing import Optional
+@@ -182,6 +184,16 @@ class DistributedDataParallel(_BaseDataParallel):
+         param_to_name = {}
+         self.params_with_grad = []
+         all_params = []
++        diagnose_attnres_grads = (
++            os.environ.get('ATTNRES_GRAD_DIAGNOSTICS') == '1'
++            or os.environ.get('ATTNRES_GRAD_BUCKET_DIAGNOSTICS') == '1'
++        )
++        sync_tied_wgrad = os.environ.get('ATTNRES_SYNC_TIED_WGRAD') == '1'
++        chunk_tied_wgrad = os.environ.get('ATTNRES_CHUNKED_TIED_WGRAD') == '1'
++        validate_tied_wgrad = os.environ.get('ATTNRES_VALIDATE_TIED_WGRAD') == '1'
++        synced_parameters = 0
++        chunked_parameters = 0
++        validated_parameters = 0
+         for name, param in self.module.named_parameters():
+             if not param.requires_grad:
+                 continue
+@@ -192,8 +204,35 @@ class DistributedDataParallel(_BaseDataParallel):
+ 
+             param.grad_added_to_main_grad = False
+             param_to_name[param] = name
++            if diagnose_attnres_grads:
++                param._attnres_diagnostic_name = name
++            if sync_tied_wgrad and name.endswith('embedding.word_embeddings.weight'):
++                param._attnres_sync_before_main_grad = True
++                synced_parameters += 1
++            if chunk_tied_wgrad and name.endswith('embedding.word_embeddings.weight'):
++                param._attnres_chunked_tied_wgrad = True
++                chunked_parameters += 1
++            if validate_tied_wgrad and name.endswith('embedding.word_embeddings.weight'):
++                param._attnres_validate_tied_wgrad = True
++                validated_parameters += 1
+             all_params.append(param)
+ 
++        if sync_tied_wgrad and synced_parameters != 1:
++            raise RuntimeError(
++                'ATTNRES_SYNC_TIED_WGRAD expected exactly one '
++                f'embedding.word_embeddings.weight after device conversion; found {synced_parameters}'
++            )
++        if chunk_tied_wgrad and chunked_parameters != 1:
++            raise RuntimeError(
++                'ATTNRES_CHUNKED_TIED_WGRAD expected exactly one '
++                f'embedding.word_embeddings.weight after device conversion; found {chunked_parameters}'
++            )
++        if validate_tied_wgrad and validated_parameters != 1:
++            raise RuntimeError(
++                'ATTNRES_VALIDATE_TIED_WGRAD expected exactly one '
++                f'embedding.word_embeddings.weight after device conversion; found {validated_parameters}'
++            )
++
+         # Group parameters by (param_dtype, grad_dtype, is_expert_parallel).
+         buffer_groups = group_params_for_buffers(all_params, self.ddp_config.grad_reduce_in_fp32)
+ 
+@@ -591,6 +630,24 @@ class DistributedDataParallel(_BaseDataParallel):
+ 
+             if param in self.param_to_bucket_group:
+                 assert param.requires_grad
++                diagnose_embedding = (
++                    os.environ.get('ATTNRES_GRAD_DIAGNOSTICS') == '1'
++                    and tuple(param.shape) == (75968, 2560)
++                )
++                if diagnose_embedding:
++                    invocation = getattr(param, '_attnres_grad_hook_invocation', 0) + 1
++                    param._attnres_grad_hook_invocation = invocation
++                    raw_grad = param.grad
++                    logger.error(
++                        'AttnRes embedding parameter pre-accumulate rank=%s invocation=%s '
++                        'raw_grad=%s raw_max_abs=%s main_max_abs=%s already_added=%s',
++                        torch.distributed.get_rank(),
++                        invocation,
++                        raw_grad is not None,
++                        raw_grad.float().abs().max().item() if raw_grad is not None else None,
++                        param.main_grad.abs().max().item(),
++                        param.grad_added_to_main_grad,
++                    )
+                 cudagraph_wgrad_ready_event = getattr(param, '_cudagraph_wgrad_ready_event', None)
+                 if self.ddp_config.overlap_grad_reduce and cudagraph_wgrad_ready_event is None:
+                     # GTP_remat keeps its real wgrad in main_grad (via finalize); param.grad here is
+@@ -603,7 +660,45 @@ class DistributedDataParallel(_BaseDataParallel):
+                 if param.grad is not None and (
+                     not param.grad_added_to_main_grad or getattr(param, 'zero_out_wgrad', False)
+                 ):
++                    if getattr(param, '_attnres_validate_tied_wgrad', False):
++                        # A data-dependent read is required here on PPU. A device-wide
++                        # synchronize alone did not establish the dependency for this shared
++                        # embedding/output gradient under Full AttnRes memory pressure.
++                        raw_max_abs = param.grad.detach().abs().max().item()
++                        threshold = float(
++                            os.environ.get('ATTNRES_TIED_WGRAD_MAX_ABS', '1000')
++                        )
++                        if not math.isfinite(raw_max_abs) or raw_max_abs > threshold:
++                            raise RuntimeError(
++                                'Full AttnRes tied embedding/output gradient failed validation: '
++                                f'rank={torch.distributed.get_rank()} max_abs={raw_max_abs} '
++                                f'threshold={threshold}'
++                            )
++                    if getattr(param, '_attnres_sync_before_main_grad', False):
++                        # Full AttnRes exposes a PPU async-wgrad dependency that the
++                        # diagnostic max().item() used to synchronize incidentally.
++                        torch.cuda.synchronize()
++                        if not getattr(param, '_attnres_sync_logged', False):
++                            param._attnres_sync_logged = True
++                            logger.warning(
++                                'AttnRes tied-wgrad synchronization active rank=%s param=%s',
++                                torch.distributed.get_rank(),
++                                getattr(param, '_attnres_diagnostic_name', '<tied-embedding>'),
++                            )
+                     param.main_grad.add_(param.grad.data)
++                if diagnose_embedding:
++                    main_grad = param.main_grad
++                    max_index = main_grad.abs().argmax().item()
++                    logger.error(
++                        'AttnRes embedding parameter post-accumulate rank=%s invocation=%s '
++                        'finite=%s max_abs=%s max_row=%s max_col=%s',
++                        torch.distributed.get_rank(),
++                        invocation,
++                        torch.isfinite(main_grad).all().item(),
++                        main_grad.abs().max().item(),
++                        max_index // main_grad.shape[1],
++                        max_index % main_grad.shape[1],
++                    )
+                 param.grad = None
+ 
+                 if self.ddp_config.overlap_grad_reduce:
+diff --git a/megatron/core/distributed/param_and_grad_buffer.py b/megatron/core/distributed/param_and_grad_buffer.py
+index 5208425..8818a3d 100644
+--- a/megatron/core/distributed/param_and_grad_buffer.py
++++ b/megatron/core/distributed/param_and_grad_buffer.py
+@@ -4,6 +4,7 @@ import fnmatch
+ import functools
+ import logging
+ import math
++import os
+ from contextlib import nullcontext
+ from enum import Enum
+ from functools import partial
+@@ -394,6 +395,60 @@ class _ParamAndGradBucketGroup:
+         rerun_state_machine = get_rerun_state_machine()
+         for i in range(len(self.buckets)):
+             grad_norm = self.buckets[i].grad_data.norm(p=2)
++            # Optional all-rank diagnostic, run only for an unusually large or
++            # non-finite pre-communication norm. Ordinary training is unaffected.
++            if (
++                os.environ.get('ATTNRES_GRAD_DIAGNOSTICS') == '1'
++                or os.environ.get('ATTNRES_GRAD_BUCKET_DIAGNOSTICS') == '1'
++            ):
++                rank = torch.distributed.get_rank()
++                finite = torch.isfinite(grad_norm).item()
++                large = (
++                    finite
++                    and grad_norm.item()
++                    > float(os.environ.get('ATTNRES_GRAD_DIAGNOSTIC_THRESHOLD', '1000'))
++                )
++                if not finite or large:
++                    bucket = self.buckets[i]
++                    logger.error(
++                        'AttnRes gradient diagnostic rank=%s bucket=%s norm=%s '
++                        'dtype=%s elements=%s',
++                        rank,
++                        i,
++                        grad_norm.item(),
++                        bucket.grad_data.dtype,
++                        bucket.grad_data.numel(),
++                    )
++                    largest = []
++                    for param in bucket.params_list:
++                        start, end = bucket.param_to_index[param]
++                        values = bucket.grad_data[start:end]
++                        nonfinite = (~torch.isfinite(values)).sum().item()
++                        param_norm = values.norm(p=2).item()
++                        name = getattr(param, '_attnres_diagnostic_name', '<unnamed>')
++                        if nonfinite:
++                            logger.error(
++                                'AttnRes gradient diagnostic nonfinite rank=%s '
++                                'param=%s shape=%s count=%s',
++                                rank,
++                                name,
++                                tuple(param.shape),
++                                nonfinite,
++                            )
++                        largest.append((param_norm, name, tuple(param.shape), values))
++                    for param_norm, name, shape, values in sorted(
++                        largest, key=lambda entry: entry[0], reverse=True
++                    )[:12]:
++                        max_abs = values.abs().max().item()
++                        logger.error(
++                            'AttnRes gradient diagnostic largest rank=%s param=%s '
++                            'shape=%s norm=%s max_abs=%s',
++                            rank,
++                            name,
++                            shape,
++                            param_norm,
++                            max_abs,
++                        )
+             # check for NaN, Inf and unexpectedly large grads
+             if check_for_nan_or_inf:
+                 rerun_state_machine.validate_result(
+diff --git a/megatron/core/models/gpt/gpt_model.py b/megatron/core/models/gpt/gpt_model.py
+index be75eab..ea31031 100644
+--- a/megatron/core/models/gpt/gpt_model.py
++++ b/megatron/core/models/gpt/gpt_model.py
+@@ -1,6 +1,8 @@
+ # Copyright (c) 2026 NVIDIA CORPORATION & AFFILIATES. All rights reserved.
+ 
+ import logging
++import math
++import os
+ from collections import OrderedDict
+ from contextlib import nullcontext
+ from typing import Any, Callable, Dict, Literal, Optional
+@@ -51,6 +53,29 @@ from megatron.core.utils import (
+ logger = logging.getLogger(__name__)
+ 
+ 
++class _FullAttnResTiedWeightProxy(torch.autograd.Function):
++    """Isolate the output-projection gradient before adding it to tied embeddings."""
++
++    @staticmethod
++    def forward(ctx, weight):
++        return weight.view_as(weight)
++
++    @staticmethod
++    def backward(ctx, grad_weight):
++        if os.environ.get('ATTNRES_VALIDATE_TIED_OUTPUT_WGRAD') == '1':
++            max_abs = grad_weight.detach().abs().max().item()
++            threshold = float(os.environ.get('ATTNRES_TIED_WGRAD_MAX_ABS', '1000'))
++            if not math.isfinite(max_abs) or max_abs > threshold:
++                raise RuntimeError(
++                    'Full AttnRes output-projection gradient failed validation before '
++                    f'tied-weight accumulation: rank={torch.distributed.get_rank()} '
++                    f'max_abs={max_abs} threshold={threshold}'
++                )
++        # Keep the output-projection contribution in independent storage before
++        # AccumulateGrad combines it with the input-embedding contribution.
++        return grad_weight.clone()
++
++
+ class GPTModel(LanguageModule, GraphableMegatronModule):
+     """GPT Transformer language model.
+ 
+@@ -739,6 +764,13 @@ class GPTModel(LanguageModule, GraphableMegatronModule):
+         output_weight = None
+         if self.share_embeddings_and_output_weights:
+             output_weight = self.shared_embedding_or_output_weight()
++            if (
++                self.training
++                and torch.is_grad_enabled()
++                and self.config.attention_residual_type == 'full'
++                and os.environ.get('ATTNRES_TIED_WEIGHT_PROXY') == '1'
++            ):
++                output_weight = _FullAttnResTiedWeightProxy.apply(output_weight)
+         if mtp_in_postprocess and not (in_inference_mode or is_spec_decode):
+             hidden_states = self.mtp(
+                 input_ids=input_ids,
+@@ -841,10 +873,68 @@ class GPTModel(LanguageModule, GraphableMegatronModule):
+                 reshaped = hidden_states.squeeze(1).unsqueeze(0)
+                 hidden_states = inference_context.last_token_logits(reshaped).unsqueeze(1)
+ 
++        diagnose_attnres_output = (
++            os.environ.get('ATTNRES_GRAD_DIAGNOSTICS') == '1'
++            and self.config.attention_residual_type != 'none'
++        )
++        if diagnose_attnres_output:
++            invocation = getattr(self, '_attnres_output_diagnostic_invocation', 0) + 1
++            self._attnres_output_diagnostic_invocation = invocation
++            hidden_float = hidden_states.float()
++            logger.error(
++                'AttnRes output input rank=%s invocation=%s shape=%s finite=%s '
++                'max_abs=%s norm=%s label_min=%s label_max=%s',
++                torch.distributed.get_rank(),
++                invocation,
++                tuple(hidden_states.shape),
++                torch.isfinite(hidden_float).all().item(),
++                hidden_float.abs().max().item(),
++                hidden_float.norm(p=2).item(),
++                labels.min().item() if labels is not None else None,
++                labels.max().item() if labels is not None else None,
++            )
++
++            def log_output_input_grad(grad):
++                grad_float = grad.float()
++                logger.error(
++                    'AttnRes output input gradient rank=%s invocation=%s finite=%s '
++                    'max_abs=%s norm=%s',
++                    torch.distributed.get_rank(),
++                    invocation,
++                    torch.isfinite(grad_float).all().item(),
++                    grad_float.abs().max().item(),
++                    grad_float.norm(p=2).item(),
++                )
++                return grad
++
++            hidden_states.register_hook(log_output_input_grad)
++
+         logits, _ = self.output_layer(
+             hidden_states, weight=output_weight, runtime_gather_output=runtime_gather_output
+         )
+ 
++        if diagnose_attnres_output:
++            logger.error(
++                'AttnRes output logits rank=%s invocation=%s shape=%s finite=%s max_abs=%s',
++                torch.distributed.get_rank(),
++                invocation,
++                tuple(logits.shape),
++                torch.isfinite(logits).all().item(),
++                logits.abs().max().item(),
++            )
++
++            def log_output_logits_grad(grad):
++                logger.error(
++                    'AttnRes output logits gradient rank=%s invocation=%s finite=%s max_abs=%s',
++                    torch.distributed.get_rank(),
++                    invocation,
++                    torch.isfinite(grad).all().item(),
++                    grad.abs().max().item(),
++                )
++                return grad
++
++            logits.register_hook(log_output_logits_grad)
++
+         # Apply MuP output scaling to logits
+         logits = self._scale_logits(logits)
+         gather_output = (
+diff --git a/megatron/core/tensor_parallel/layers.py b/megatron/core/tensor_parallel/layers.py
+index 8fcf9e1..51bcd50 100644
+--- a/megatron/core/tensor_parallel/layers.py
++++ b/megatron/core/tensor_parallel/layers.py
+@@ -654,6 +654,27 @@ def _wgrad_gemm(out, grad_output, total_input):
+     return out
+ 
+ 
++def _attnres_chunked_tied_wgrad(weight, grad_output, total_input):
++    """Compute the Full AttnRes tied-vocabulary wgrad in row chunks.
++
++    The PPU backend has produced sporadic corrupt elements for the single
++    [local_vocab, hidden] GEMM under Full AttnRes memory pressure. Row chunks
++    preserve the same contraction while avoiding that large kernel shape.
++    """
++    chunk_rows = int(os.environ.get('ATTNRES_TIED_WGRAD_CHUNK_ROWS', '4096'))
++    if chunk_rows < 1:
++        raise ValueError('ATTNRES_TIED_WGRAD_CHUNK_ROWS must be positive')
++    grad_weight = torch.empty_like(weight)
++    for start in range(0, grad_output.shape[-1], chunk_rows):
++        end = min(start + chunk_rows, grad_output.shape[-1])
++        torch.matmul(
++            grad_output[:, start:end].t(),
++            total_input,
++            out=grad_weight[start:end],
++        )
++    return grad_weight
++
++
+ class LinearWithGradAccumulationAndAsyncCommunication(torch.autograd.Function):
+     """See linear_with_grad_accumulation_and_async_allreduce"""
+ 
+@@ -851,7 +872,9 @@ class LinearWithGradAccumulationAndAsyncCommunication(torch.autograd.Function):
+             # across ranks before the fp32 accum sees the value.
+             grad_weight = _wgrad_gemm(sharded_weight.get_wgrad_tensor(), grad_output, total_input)
+         else:
+-            if ctx.gtp_remat_size > 1 and sharded_weight.use_zero_copy_wgrad(grad_output.dtype):
++            if getattr(weight, '_attnres_chunked_tied_wgrad', False):
++                grad_weight = _attnres_chunked_tied_wgrad(weight, grad_output, total_input)
++            elif ctx.gtp_remat_size > 1 and sharded_weight.use_zero_copy_wgrad(grad_output.dtype):
+                 # GTP: write the wgrad straight into the reduce-scatter send buffer.
+                 grad_weight = sharded_weight.get_wgrad_tensor()
+                 torch.matmul(grad_output.t(), total_input, out=grad_weight)
+diff --git a/megatron/core/transformer/multi_latent_attention.py b/megatron/core/transformer/multi_latent_attention.py
+index 6177485..28f0a0e 100644
+--- a/megatron/core/transformer/multi_latent_attention.py
++++ b/megatron/core/transformer/multi_latent_attention.py
+@@ -78,8 +78,14 @@ if HAVE_TE:
+         FusedMLAQUpProjRopeQuant = None
+         mxfp8_quantize_only = None
+         mxfp8_transpose_swizzle = None
+-    from transformer_engine.pytorch.quantized_tensor import QuantizedTensor
+-    from transformer_engine.pytorch.tensor.mxfp8_tensor import MXFP8Quantizer
++    try:
++        from transformer_engine.pytorch.quantized_tensor import QuantizedTensor
++        from transformer_engine.pytorch.tensor.mxfp8_tensor import MXFP8Quantizer
++    except ImportError:
++        # PPU TE 2.3 does not expose NVIDIA quantized-tensor interfaces.
++        # Ordinary dense attention must remain importable without MLA FP8.
++        QuantizedTensor = ()
++        MXFP8Quantizer = None
+ 
+     from megatron.core.extensions.transformer_engine import (
+         TEColumnParallelLinear,
+diff --git a/megatron/core/transformer/torch_norm.py b/megatron/core/transformer/torch_norm.py
+index d961b21..a5bff5f 100644
+--- a/megatron/core/transformer/torch_norm.py
++++ b/megatron/core/transformer/torch_norm.py
+@@ -49,8 +49,6 @@ class WrappedTorchNorm:
+ 
+         assert not config.persist_layer_norm, f"persist_layer_norm not supported by torch LayerNorm"
+ 
+-        assert not config.sequence_parallel, f"sequence parallel not supported by torch LayerNorm"
+-
+         assert (
+             not config.memory_efficient_layer_norm
+         ), f"memory_efficient_layer_norm not supported by torch LayerNorm"
+@@ -69,6 +67,10 @@ class WrappedTorchNorm:
+             raise Exception("Only LayerNorm, RMSNorm and L2Norm are currently supported")
+ 
+         instance = norm_cls(normalized_shape=hidden_size, eps=eps)
++        # Per-token normalization is local under sequence parallelism; its
++        # affine gradients are summed by finalize_model_grads across TP ranks.
++        for param in instance.parameters():
++            param.sequence_parallel = config.sequence_parallel
+         instance.returns_residual = False
+         return instance
+ 
+diff --git a/megatron/core/transformer/transformer_block.py b/megatron/core/transformer/transformer_block.py
+index ff0a28b..e4b1d00 100755
+--- a/megatron/core/transformer/transformer_block.py
++++ b/megatron/core/transformer/transformer_block.py
+@@ -1,6 +1,7 @@
+ # Copyright (c) 2026 NVIDIA CORPORATION & AFFILIATES. All rights reserved.
+ 
+ import logging
++import os
+ from contextlib import nullcontext
+ from dataclasses import dataclass
+ from typing import List, Optional, Set, Union, cast
+@@ -403,6 +404,14 @@ class TransformerBlock(GraphableMegatronModule, MegatronModule):
+                 for i, layer_spec in enumerate(self.submodules.layer_specs)
+             ]
+         )
++        self.final_attn_res = None
++        if self.config.attention_residual_type != 'none':
++            from megatron.core.transformer.attention_residuals import build_attn_res
++
++            if len(self.layers) != self.config.num_layers:
++                raise ValueError('Attention Residuals requires the complete decoder on one stage')
++            self.final_attn_res = build_attn_res(self.config)
++
+         if self.config.cuda_graph_impl == "local":
+             annotate_first_last_layer(self.layers)
+ 
+@@ -682,6 +691,38 @@ class TransformerBlock(GraphableMegatronModule, MegatronModule):
+             use_mhc_recompute=use_mhc_recompute,
+         )
+ 
++        attn_res_state = None
++        if self.config.attention_residual_type != 'none':
++            from megatron.core.transformer.attention_residuals import AttnResState
++
++            if extract_layer_indices:
++                raise NotImplementedError('Intermediate extraction is not supported with AttnRes')
++            attn_res_state = AttnResState(
++                hidden_states,
++                mode=self.config.attention_residual_type,
++                block_size=self.config.attention_residual_block_size,
++                eps=self.config.attention_residual_write_epsilon,
++            )
++            if (
++                os.environ.get('ATTNRES_GRAD_DIAGNOSTICS') == '1'
++                and hidden_states.requires_grad
++            ):
++
++                def log_embedding_activation_grad(grad):
++                    grad_float = grad.float()
++                    logger.error(
++                        'AttnRes embedding activation gradient rank=%s shape=%s '
++                        'finite=%s max_abs=%s norm=%s',
++                        torch.distributed.get_rank(),
++                        tuple(grad.shape),
++                        torch.isfinite(grad_float).all().item(),
++                        grad_float.abs().max().item(),
++                        grad_float.norm(p=2).item(),
++                    )
++                    return grad
++
++                hidden_states.register_hook(log_embedding_activation_grad)
++
+         with rng_context, outer_quantization_context:
+             # Forward pass.
+             if self.config.recompute_granularity == 'full' and self.training:
+@@ -737,6 +778,8 @@ class TransformerBlock(GraphableMegatronModule, MegatronModule):
+                     extra_layer_kwargs = (
+                         {"mhc_recompute_manager": mhc_manager} if mhc_manager is not None else {}
+                     )
++                    if attn_res_state is not None:
++                        extra_layer_kwargs['attn_res_state'] = attn_res_state
+                     with self.offload_context, inner_quantization_context:
+                         hidden_states, context = layer(
+                             hidden_states=hidden_states,
+@@ -778,6 +821,9 @@ class TransformerBlock(GraphableMegatronModule, MegatronModule):
+                 hidden_states, self.mhc_num_residual_streams
+             )  # [s, b, n*C] -> [s, b, C]
+ 
++        if attn_res_state is not None:
++            hidden_states = self.final_attn_res(attn_res_state.values())
++
+         # Final layer norm.
+         if self.final_layernorm is not None:
+             hidden_states = apply_module(self.final_layernorm)(cast(Tensor, hidden_states))
+diff --git a/megatron/core/transformer/transformer_config.py b/megatron/core/transformer/transformer_config.py
+index 3f70b72..e023408 100644
+--- a/megatron/core/transformer/transformer_config.py
++++ b/megatron/core/transformer/transformer_config.py
+@@ -209,6 +209,21 @@ class TransformerConfig(ModelParallelConfig):
+     attention_dropout: float = 0.1
+     """Post attention dropout probability."""
+ 
++    attention_residual_type: Literal['none', 'full', 'block', 'rms_block'] = 'none'
++    """Depth-wise Attention Residual policy; none preserves the upstream model."""
++
++    attention_residual_block_size: int = 4
++    """Number of attention/MLP outputs per block, excluding embeddings."""
++
++    attention_residual_key_epsilon: float = 1e-6
++    """Epsilon for the affine RMSNorm used to score depth sources."""
++
++    attention_residual_write_epsilon: float = 1e-6
++    """Epsilon for per-write, non-affine RMSNorm in completed RMS blocks."""
++
++    attention_residual_implementation: Literal['torch', 'checkpointed'] = 'torch'
++    """Optionally recompute the depth read in backward, with immutable sources."""
++
+     fp32_residual_connection: bool = False
+     """If true, move residual connections to fp32."""
+ 
+@@ -1577,6 +1592,10 @@ class TransformerConfig(ModelParallelConfig):
+         details.
+         """
+         super().__post_init__()
++        from megatron.core.transformer.attention_residuals import validate_attn_res_config
++
++        validate_attn_res_config(self)
++
+         self._validate_cp_layouts()
+ 
+         if self.attn_logit_softcapping is not None and not (
+diff --git a/megatron/core/transformer/transformer_layer.py b/megatron/core/transformer/transformer_layer.py
+index c8db43e..61d40ca 100644
+--- a/megatron/core/transformer/transformer_layer.py
++++ b/megatron/core/transformer/transformer_layer.py
+@@ -367,6 +367,12 @@ class TransformerLayer(GraphableMegatronModule, BaseTransformerLayer, TwoStageAt
+                 self.config, vp_stage, get_pg_rank(pg_collection.pp)
+             )
+         self.hidden_dropout = config.hidden_dropout if hidden_dropout is None else hidden_dropout
++        if config.attention_residual_type != 'none':
++            from megatron.core.transformer.attention_residuals import build_attn_res
++
++            self.attn_res = build_attn_res(config)
++            self.mlp_attn_res = build_attn_res(config)
++
+         self.is_mtp_layer = is_mtp_layer
+ 
+         # [Module 1: Input Layernorm] Optional Layernorm on the input data
+@@ -962,6 +968,10 @@ class TransformerLayer(GraphableMegatronModule, BaseTransformerLayer, TwoStageAt
+         This method calls the core computation of a transformer layer, including
+         self-attention, cross-attention (if applicable), and feed-forward operations.
+         """
++        if self.config.attention_residual_type != 'none':
++            from megatron.core.transformer.attention_residuals import forward_attn_res_layer
++
++            return forward_attn_res_layer(self, *args, **kwargs)
+         with _otel_managed_span(
+             'layer', 'megatron.layer.forward', **{'megatron.layer_number': self.layer_number}
+         ):
+diff --git a/megatron/training/training.py b/megatron/training/training.py
+index bfb5f8b..52b97fb 100644
+--- a/megatron/training/training.py
++++ b/megatron/training/training.py
+@@ -119,7 +119,6 @@ from megatron.core.rerun_state_machine import (
+     destroy_rerun_state_machine,
+     get_rerun_state_machine,
+ )
+-from megatron.core.resharding.refit import swap_model_weights
+ from megatron.core.transformer.cuda_graphs import TECudaGraphHelper
+ from megatron.core.transformer.experimental_attention_variant.dsa import DSAIndexerLossLoggingHelper
+ from megatron.core.transformer.module import Float16Module
+@@ -2182,6 +2181,8 @@ def pretrain(
+                 # If separate inference and training models, swap training weights
+                 # back to the inference model for RL evaluation.
+                 rl_utils._maybe_prefetch_separate_inference_model_weights(inf_core, to_cpu=False)
++                from megatron.core.resharding.refit import swap_model_weights
++
+                 swap_model_weights(
+                     model,
+                     inference_model,
+@@ -5378,6 +5379,8 @@ def train(
+                     rl_utils._maybe_prefetch_separate_inference_model_weights(
+                         inf_core, to_cpu=False
+                     )
++                    from megatron.core.resharding.refit import swap_model_weights
++
+                     swap_model_weights(
+                         model,
+                         inference_model,
+diff --git a/model_provider.py b/model_provider.py
+index c7d3b13..e7f61c7 100644
+--- a/model_provider.py
++++ b/model_provider.py
+@@ -2,6 +2,7 @@
+ 
+ """Common functions used in train_*.py and pretrain_*.py scripts."""
+ 
++import os
+ from typing import Callable, Optional, Union
+ 
+ import torch
+@@ -56,7 +57,8 @@ def model_provider(
+         # [ModelOpt]: Use custom builder + spec when modelopt is enabled
+         model_builder = modelopt_gpt_hybrid_builder
+ 
+-    return model_builder(args, pre_process, post_process, vp_stage, config=config, pg_collection=pg_collection)
++    model = model_builder(args, pre_process, post_process, vp_stage, config=config, pg_collection=pg_collection)
++    return model
+ 
+ 
+ def count_parameters_in_layer(model, layer_name):
+diff --git a/megatron/core/transformer/attention_residuals.py b/megatron/core/transformer/attention_residuals.py
+new file mode 100644
+--- /dev/null
++++ b/megatron/core/transformer/attention_residuals.py
+@@ -0,0 +1,256 @@
++# Copyright (c) 2026, NVIDIA CORPORATION. All rights reserved.
++# Adapted from Smu-Tan/Megatron-LM acd397827e4629abbd8bc8e5372292f4951fe5a1.
++# See examples/attention_residuals/README.md for provenance and changes.
++"""Full, Block and per-write RMS Block Attention Residuals."""
++
++import math
++from dataclasses import dataclass, field
++
++import torch
++from torch import Tensor, nn
++from torch.nn import functional as F
++
++
++def rms_write(value: Tensor, eps: float) -> Tensor:
++    """Normalize each token across hidden channels, without affine or centering."""
++    x = value.float()
++    return (x * torch.rsqrt(x.square().mean(-1, keepdim=True) + eps)).to(value.dtype)
++
++
++def _full_attn_res_compute(values, query, weight, eps):
++    """Compute the learned depth read using the model activation dtype."""
++    reference = values[0]
++    query = query.to(dtype=reference.dtype)
++    weight = weight.to(dtype=reference.dtype)
++
++    logits = []
++    for value in values:
++        variance = value.pow(2).mean(dim=-1, keepdim=True)
++        key = value * torch.rsqrt(variance + eps) * weight
++        logits.append(torch.einsum('h,sbh->sb', query, key))
++
++    depth_weights = torch.softmax(torch.stack(logits, dim=0), dim=0).to(reference.dtype)
++    output = torch.zeros_like(reference)
++    for depth, value in enumerate(values):
++        output = output + depth_weights[depth].unsqueeze(-1) * value
++    return output
++
++
++class _FullAttnResCheckpointed(torch.autograd.Function):
++    """Recompute a Full AttnRes read during backward.
++
++    Full history reuses the embedding and earlier writes in many reads. Passing
++    the query, key weight, and every history tensor explicitly through one
++    autograd function avoids the unstable generic checkpoint path observed on
++    PPU while preserving the same forward formula.
++    """
++
++    @staticmethod
++    def forward(ctx, query, weight, eps, *values):
++        ctx.eps = eps
++        ctx.save_for_backward(query, weight, *values)
++        with torch.no_grad():
++            return _full_attn_res_compute(values, query, weight, eps)
++
++    @staticmethod
++    def backward(ctx, grad_output):
++        query, weight, *values = ctx.saved_tensors
++        query_recompute = query.detach().requires_grad_(True)
++        weight_recompute = weight.detach().requires_grad_(True)
++        values_recompute = [value.detach().requires_grad_(True) for value in values]
++
++        with torch.enable_grad():
++            output = _full_attn_res_compute(
++                values_recompute, query_recompute, weight_recompute, ctx.eps
++            )
++        grads = torch.autograd.grad(
++            output,
++            (query_recompute, weight_recompute, *values_recompute),
++            grad_output,
++            allow_unused=True,
++        )
++        query_grad, weight_grad, *value_grads = grads
++        if query_grad is None:
++            query_grad = torch.zeros_like(query)
++        if weight_grad is None:
++            weight_grad = torch.zeros_like(weight)
++        value_grads = [
++            torch.zeros_like(value) if grad is None else grad
++            for value, grad in zip(values, value_grads)
++        ]
++        return query_grad, weight_grad, None, *value_grads
++
++
++@dataclass
++class AttnResState:
++    """Per-forward history; embeddings stay separate from sublayer blocks.
++
++    In rms_block mode the pending sum stays raw. Only a completed block is
++    replaced by the sum of its individually normalized writes. Histories are
++    never mutated in-place, and values() returns an immutable snapshot.
++    """
++
++    embedding: Tensor
++    mode: str = 'full'
++    block_size: int = 4
++    eps: float = 1e-6
++    completed: list[Tensor] = field(default_factory=list)
++    pending: list[Tensor] = field(default_factory=list)
++
++    def __post_init__(self):
++        if self.mode not in ('full', 'block', 'rms_block'):
++            raise ValueError(f'Unknown Attention Residual mode: {self.mode}')
++        if self.block_size < 1 or self.eps <= 0:
++            raise ValueError('block_size and eps must be positive')
++
++    def append(self, value: Tensor):
++        if self.mode == 'full':
++            self.completed.append(value)
++            return
++        self.pending.append(value)
++        if len(self.pending) == self.block_size:
++            writes = self.pending
++            if self.mode == 'rms_block':
++                writes = [rms_write(v, self.eps) for v in writes]
++            self.completed.append(sum(writes))
++            self.pending = []
++
++    def values(self) -> tuple[Tensor, ...]:
++        partial = (sum(self.pending),) if self.pending else ()
++        return (self.embedding, *self.completed, *partial)
++
++
++class FullAttnRes(nn.Module):
++    """The same learned depth read is shared by all three history policies.
++
++    Keys use affine RMSNorm; values stay unchanged. The learned query starts at
++    zero (uniform weights).
++    """
++
++    def __init__(self, hidden_size, eps=1e-6, implementation='torch'):
++        super().__init__()
++        if hidden_size < 1 or eps <= 0:
++            raise ValueError('hidden_size and eps must be positive')
++        if implementation not in ('torch', 'checkpointed'):
++            raise ValueError('implementation must be torch or checkpointed')
++        self.hidden_size = hidden_size
++        self.eps = eps
++        self.implementation = implementation
++        self.query = nn.Parameter(torch.zeros(hidden_size))
++        self.weight = nn.Parameter(torch.ones(hidden_size))
++
++    def _compute(self, *values):
++        return _full_attn_res_compute(values, self.query, self.weight, self.eps)
++
++    def forward(self, values):
++        values = tuple(values)
++        if not values or values[0].ndim != 3 or values[0].shape[-1] != self.hidden_size:
++            raise ValueError('Expected nonempty [sequence, batch, hidden] sources')
++        if any(v.shape != values[0].shape for v in values):
++            raise ValueError('All sources must have the same shape')
++        if self.implementation == 'checkpointed' and torch.is_grad_enabled():
++            return _FullAttnResCheckpointed.apply(self.query, self.weight, self.eps, *values)
++        return self._compute(*values)
++
++
++def build_attn_res(config):
++    """Build a replicated learned read, registered before optimizer construction."""
++    module = FullAttnRes(
++        config.hidden_size,
++        config.attention_residual_key_epsilon,
++        config.attention_residual_implementation,
++    )
++    # Sequence-sharded reads have partial parameter gradients across TP ranks.
++    for param in module.parameters():
++        param.sequence_parallel = config.sequence_parallel
++    return module
++
++
++def validate_attn_res_config(config):
++    """Fail early for execution paths that do not carry full depth history."""
++    if config.attention_residual_type not in ('none', 'full', 'block', 'rms_block'):
++        raise ValueError('Unknown attention_residual_type')
++    if config.attention_residual_type == 'none':
++        return
++    if config.attention_residual_block_size < 1:
++        raise ValueError('attention_residual_block_size must be positive')
++    epsilons = (config.attention_residual_key_epsilon, config.attention_residual_write_epsilon)
++    if any(not math.isfinite(eps) or eps <= 0 for eps in epsilons):
++        raise ValueError('Attention Residual epsilons must be finite and positive')
++    # Start with the dense, ordinary execution path. Unsupported combinations
++    # must not silently fall back to ordinary residual connections.
++    requirements = {
++        'pipeline_model_parallel_size': 1,
++        'context_parallel_size': 1,
++        'virtual_pipeline_model_parallel_size': None,
++        'num_moe_experts': None,
++        'recompute_granularity': None,
++        'cpu_offloading': False,
++        'fp32_residual_connection': False,
++        'apply_residual_connection_post_layernorm': False,
++        'fused_residual_rmsnorm': False,
++        'enable_mhc_connections': False,
++        'fp8': None,
++        'fp4': None,
++        'cuda_graph_impl': 'none',
++        'inference_fuse_tp_communication': False,
++        'mtp_num_layers': None,
++    }
++    for name, expected in requirements.items():
++        if getattr(config, name, expected) != expected:
++            raise ValueError(f'Attention Residuals currently requires {name}={expected!r}')
++    if (
++        getattr(config, 'sequence_parallel', False)
++        and getattr(config, 'tensor_model_parallel_size', 1) == 1
++    ):
++        raise ValueError('Sequence parallel requires TP > 1')
++    if getattr(config, 'tensor_model_parallel_size', 1) > 1:
++        if getattr(config, 'hidden_dropout', 0) or getattr(config, 'attention_dropout', 0):
++            raise ValueError('Attention Residual TP currently requires zero dropout')
++    if config.attention_residual_type == 'rms_block':
++        if 2 * config.num_layers % config.attention_residual_block_size:
++            raise ValueError('RMS Block requires complete blocks, matching our existing trainer')
++
++
++def forward_attn_res_layer(layer, hidden_states, attention_mask=None, **kwargs):
++    """Reuse Megatron attention and dense MLP, replacing only residual routing."""
++    from megatron.core.transformer.identity_op import IdentityOp
++
++    state = kwargs.pop('attn_res_state', None)
++    if state is None:
++        raise RuntimeError('Attention Residual layer requires per-forward history')
++    if not isinstance(layer.cross_attention, IdentityOp):
++        raise NotImplementedError('Attention Residuals supports decoder-only layers')
++    if kwargs.get('inference_context') is not None or kwargs.get('inference_params') is not None:
++        raise NotImplementedError('Cached inference is not supported; use full-sequence forward')
++    if kwargs.get('context') is not None:
++        raise NotImplementedError('Cross-attention is not supported')
++
++    def write(output_with_bias):
++        output, bias = output_with_bias
++        if bias is not None:
++            output = output + bias
++        output = F.dropout(output, p=layer.hidden_dropout, training=layer.training)
++        state.append(output)
++        return output
++
++    attention_keys = (
++        'rotary_pos_emb',
++        'rotary_pos_cos',
++        'rotary_pos_sin',
++        'rotary_pos_cos_sin',
++        'attention_bias',
++        'packed_seq_params',
++        'sequence_len_offset',
++    )
++    attention_input = layer.input_layernorm(layer.attn_res(state.values()))
++    write(
++        layer.self_attention(
++            attention_input,
++            attention_mask=attention_mask,
++            **{key: kwargs[key] for key in attention_keys if key in kwargs},
++        )
++    )
++    mlp_input = layer.pre_mlp_layernorm(layer.mlp_attn_res(state.values()))
++    output = write(layer.mlp(mlp_input))
++    return output, kwargs.get('context')
+diff --git a/examples/attention_residuals/qwen3_spec.py b/examples/attention_residuals/qwen3_spec.py
+new file mode 100644
+--- /dev/null
++++ b/examples/attention_residuals/qwen3_spec.py
+@@ -0,0 +1,7 @@
++"""Local tensor-parallel layers with TE memory-efficient causal attention."""
++
++from megatron.core.extensions.transformer_engine import TEDotProductAttention
++from megatron.core.models.gpt.gpt_layer_specs import get_gpt_layer_local_spec
++
++model_spec = get_gpt_layer_local_spec(qk_layernorm=True, normalization='RMSNorm')
++model_spec.submodules.self_attention.submodules.core_attention = TEDotProductAttention

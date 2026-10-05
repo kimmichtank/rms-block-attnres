@@ -1,0 +1,32 @@
+{
+  "seq_len": 1024,
+  "splits": {
+    "train": {
+      "labels": 3200000000,
+      "bytes": 12812316260,
+      "token_sha256": "d5cf94f1f63f6049a6156cfb86f51a7d122b04e29fc05b93928465829777f4a9",
+      "index_sha256": "0a8799a9bd473bd2d0a5c085085652c7e073baa482becb92155623f3ee62ee71",
+      "fingerprint": "c378ff81550d85bfa3c3d301827b6d3473157ef7a249390694ee01ca33631133",
+      "chunks": 4799456
+    },
+    "validation": {
+      "labels": 5000000,
+      "bytes": 20020120,
+      "token_sha256": "cd9f4d862f2309e57a7d76db433702cf0bf46af4cdb33b2318cfc282dcf3237b",
+      "index_sha256": "90d503232898f3132974202e3ac24a4d4df1f4b8338afec08f2c143709c9ab7c",
+      "fingerprint": "76ebc1d4a086ee574c2af408260ec96c46b70ec027e8ae853b3fcd753532dc00",
+      "chunks": 7614
+    },
+    "test": {
+      "labels": 5000000,
+      "bytes": 20018868,
+      "token_sha256": "d0372ffd051b9aca220a7af3dd565b3b2118df230877741f3a8916355a64bbac",
+      "index_sha256": "862ed6a5d3395d0e2da482f901ca2ba61159c1b135af765e5ef3e38df283e2f4",
+      "fingerprint": "3c355b9461f73f17603edd37e53800452943f453ff3a7796226f23f8a442a096",
+      "chunks": 7414
+    }
+  },
+  "selection": "sorted part names, document order",
+  "selected_documents_sha256": "ceacc707e2d92465347c9fb1451e71051fcaa611447c7673f60ce1d15296e9c5",
+  "source_config_sha256": "9d0378b20bb61dcb56d15dbb08289e5e9a065c0207691e48ccafe2f36b617ce5"
+}

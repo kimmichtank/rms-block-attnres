@@ -1,0 +1,20 @@
+{
+  "source_id": "57m_full_rms/train.jsonl",
+  "rows": 9865,
+  "unique_steps": 9500,
+  "repeated_steps": 365,
+  "last": {
+    "step": 9500,
+    "tokens": 999038753,
+    "nll": 3.459889534424156,
+    "lr": 2.9999999999999997e-05,
+    "grad_norm": 1.697141408920288,
+    "seconds": 3.4801717959344387,
+    "tokens_per_second": 3635.1653716575106,
+    "peak_allocated": 15009283584,
+    "peak_reserved": 40709914624
+  },
+  "last1000_step_mean_nll": 3.6351627860462252,
+  "resumed": true,
+  "selection": "Last occurrence per step; selected rows are not an extra training pass."
+}

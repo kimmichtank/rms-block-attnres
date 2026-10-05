@@ -1,0 +1,63 @@
+{
+  "audit_utc": "2026-09-27T15:30:30.698249+00:00",
+  "runs": [
+    {
+      "run_id": "block",
+      "variant": "block",
+      "status": "completed_target_stop",
+      "last_logged_step": 9537,
+      "last_validation_step": 9500,
+      "saved_checkpoint_steps": [
+        2385,
+        4770,
+        7155,
+        9537
+      ],
+      "resumed": false,
+      "global_batch": 256,
+      "world_size": 64,
+      "comparison": "matched_last_scheduled_validation",
+      "exclusion_reason": null,
+      "log_precision": "7 significant digits; no fresh checkpoint evaluation"
+    },
+    {
+      "run_id": "full",
+      "variant": "full",
+      "status": "completed_target_stop",
+      "last_logged_step": 9537,
+      "last_validation_step": 9500,
+      "saved_checkpoint_steps": [
+        2385,
+        4770,
+        7155,
+        9537
+      ],
+      "resumed": false,
+      "global_batch": 256,
+      "world_size": 64,
+      "comparison": "matched_last_scheduled_validation",
+      "exclusion_reason": null,
+      "log_precision": "7 significant digits; no fresh checkpoint evaluation"
+    },
+    {
+      "run_id": "rms_block",
+      "variant": "rms_block",
+      "status": "completed_target_stop",
+      "last_logged_step": 9537,
+      "last_validation_step": 9500,
+      "saved_checkpoint_steps": [
+        2385,
+        4770,
+        7155,
+        9537
+      ],
+      "resumed": false,
+      "global_batch": 256,
+      "world_size": 64,
+      "comparison": "matched_last_scheduled_validation",
+      "exclusion_reason": null,
+      "log_precision": "7 significant digits; no fresh checkpoint evaluation"
+    }
+  ],
+  "previous_audit_utc": "2026-09-27T15:30:30.698249+00:00"
+}

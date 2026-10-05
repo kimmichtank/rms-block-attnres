@@ -1,0 +1,16 @@
+.venv/
+__pycache__/
+*.pyc
+.DS_Store
+/data/
+/runs/
+*.pt
+*.safetensors
+*.bin
+*.idx
+*.distcp
+vendor/brujula/tokenizer.json
+vendor/brujula/tokenizer_config.json
+.env
+/*.log
+/test-output/

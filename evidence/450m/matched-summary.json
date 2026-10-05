@@ -1,0 +1,128 @@
+{
+  "question": "At matched model, data, optimizer, and 10B training labels, how do Full, Block4, and RMSNorm Block4 compare?",
+  "settings": {
+    "parameters": 512416576,
+    "layers": 28,
+    "hidden_size": 1280,
+    "sequence_length": 1024,
+    "global_batch": 64,
+    "seed": 42,
+    "train_tokens": 10000000000,
+    "steps": 234011,
+    "validation_interval_steps": 500,
+    "validation_tokens_per_evaluation": 5000000,
+    "test_tokens": 5000000,
+    "data_fingerprint": {
+      "train": "4386376feb88437326d8a287a4515dc8b065c201a048971523fd9332620014d1",
+      "validation": "76ebc1d4a086ee574c2af408260ec96c46b70ec027e8ae853b3fcd753532dc00",
+      "test": "3c355b9461f73f17603edd37e53800452943f453ff3a7796226f23f8a442a096"
+    }
+  },
+  "checks": {
+    "complete_markers_present": true,
+    "configs_identical_except_variant": true,
+    "all_training_steps_present_and_matched_in_tokens_and_lr": true,
+    "all_final_validation_and_test_files_present": true
+  },
+  "results": {
+    "Full AttnRes": {
+      "variant": "full",
+      "validation_points": 466,
+      "missing_validation_steps": [
+        39500,
+        199500,
+        229500
+      ],
+      "final_validation": {
+        "step": 234011,
+        "nll": 2.6974559478515623,
+        "tokens": 5000000,
+        "ppl": 14.841925022911717
+      },
+      "best_validation": {
+        "step": 234011,
+        "nll": 2.6974559478515623,
+        "tokens": 5000000,
+        "ppl": 14.841925022911717
+      },
+      "test": {
+        "nll": 2.716601201171875,
+        "tokens": 5000000,
+        "ppl": 15.128814964522988
+      },
+      "training_step_hours": 174.56908089946793,
+      "training_labels_per_second": 15912.197987554646,
+      "peak_allocated_GiB": 49.42867994308472,
+      "peak_reserved_GiB": 77.56640625,
+      "last_1000_update_mean_training_nll": 2.7008187503146406,
+      "test_nll_minus_full": 0.0,
+      "test_ppl_vs_full_percent": 0.0,
+      "training_step_speed_vs_full": 1.0
+    },
+    "Block AttnRes (size 4)": {
+      "variant": "block4",
+      "validation_points": 469,
+      "missing_validation_steps": [],
+      "final_validation": {
+        "step": 234011,
+        "nll": 2.7138103623046876,
+        "tokens": 5000000,
+        "ppl": 15.086651742451647
+      },
+      "best_validation": {
+        "step": 234000,
+        "nll": 2.713794911328125,
+        "tokens": 5000000,
+        "ppl": 15.086418640749995
+      },
+      "test": {
+        "nll": 2.7330774546875,
+        "tokens": 5000000,
+        "ppl": 15.380145966274483
+      },
+      "training_step_hours": 67.23473095599199,
+      "training_labels_per_second": 41314.62621001565,
+      "peak_allocated_GiB": 28.526732921600342,
+      "peak_reserved_GiB": 45.76953125,
+      "last_1000_update_mean_training_nll": 2.7175694234801013,
+      "test_nll_minus_full": 0.016476253515624872,
+      "test_ppl_vs_full_percent": 1.661273552098197,
+      "training_step_speed_vs_full": 2.5964122770675004
+    },
+    "RMSNorm Block AttnRes (size 4)": {
+      "variant": "norm_rms",
+      "validation_points": 469,
+      "missing_validation_steps": [],
+      "final_validation": {
+        "step": 234011,
+        "nll": 2.7037347796875,
+        "tokens": 5000000,
+        "ppl": 14.935408149547078
+      },
+      "best_validation": {
+        "step": 234000,
+        "nll": 2.7035217439453123,
+        "tokens": 5000000,
+        "ppl": 14.932226712678974
+      },
+      "test": {
+        "nll": 2.723055270703125,
+        "tokens": 5000000,
+        "ppl": 15.22677316270327
+      },
+      "training_step_hours": 70.88133214449199,
+      "training_labels_per_second": 39189.13053320248,
+      "peak_allocated_GiB": 32.66957187652588,
+      "peak_reserved_GiB": 47.060546875,
+      "last_1000_update_mean_training_nll": 2.707458399734751,
+      "test_nll_minus_full": 0.006454069531249829,
+      "test_ppl_vs_full_percent": 0.6474941917790078,
+      "training_step_speed_vs_full": 2.462835779434956
+    }
+  },
+  "caveats": [
+    "One random seed; small differences are not statistical significance claims.",
+    "Training-step time excludes validation, checkpoint saving, job startup, and ACP scheduling.",
+    "Full has three missing intermediate validation files (steps 39500, 199500, 229500); its complete 234011-step training log and final evaluation are present."
+  ]
+}

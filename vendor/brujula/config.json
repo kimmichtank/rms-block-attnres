@@ -1,0 +1,33 @@
+{
+  "architectures": [
+    "BrujulaForCausalLM"
+  ],
+  "attnres_block_size": 4,
+  "auto_map": {
+    "AutoConfig": "configuration_brujula_v2.BrujulaConfig",
+    "AutoModelForCausalLM": "modeling_brujula_v2.BrujulaForCausalLM"
+  },
+  "block_size": 32768,
+  "bos_token_id": 50256,
+  "dropout": 0.0,
+  "dtype": "float32",
+  "eos_token_id": 50256,
+  "hidden_size": 816,
+  "kv_compression_dim": 64,
+  "max_position_embeddings": 32768,
+  "model_type": "brujula",
+  "n_embd": 816,
+  "n_head": 6,
+  "n_layer": 18,
+  "num_attention_heads": 6,
+  "num_hidden_layers": 18,
+  "q_compression_dim": 192,
+  "residual": "attnres_block",
+  "rope_base": 10000,
+  "rope_scale_len": 32768,
+  "rope_scaling_method": "yarn_aggr",
+  "rope_trained_len": 1024,
+  "tie_word_embeddings": true,
+  "transformers_version": "5.8.0",
+  "vocab_size": 50257
+}

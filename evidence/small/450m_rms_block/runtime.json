@@ -1,0 +1,12 @@
+{
+  "parameters": 512416576,
+  "trainable_parameters": 512416576,
+  "initialization": "resume_own_pretraining_checkpoint",
+  "pretrained_weights_loaded": false,
+  "torch": "2.11.0+cu128",
+  "cuda": "12.8",
+  "device": "NVIDIA H100 80GB HBM3",
+  "width": 1280,
+  "layers": 28,
+  "heads": 8
+}

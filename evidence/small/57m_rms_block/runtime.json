@@ -1,0 +1,12 @@
+{
+  "parameters": 56836352,
+  "trainable_parameters": 56836352,
+  "initialization": "random_all_parameters",
+  "pretrained_weights_loaded": false,
+  "torch": "2.11.0+cu128",
+  "cuda": "12.8",
+  "device": "NVIDIA H100 80GB HBM3",
+  "width": 512,
+  "layers": 12,
+  "heads": 8
+}

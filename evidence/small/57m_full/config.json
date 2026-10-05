@@ -1,0 +1,39 @@
+{
+  "prepared": "<LOCAL_PATH_e4a65a510a40>",
+  "native_source": "<LOCAL_PATH_12f293f981be>",
+  "variant": "full",
+  "width": 512,
+  "layers": 12,
+  "heads": 8,
+  "seq_len": 512,
+  "batch_size": 64,
+  "accumulation": 1,
+  "train_tokens": 1000000000,
+  "eval_tokens": 5000000,
+  "lr": 0.0003,
+  "warmup_fraction": 0.02,
+  "seed": 42,
+  "save_every": 250,
+  "eval_every": 500,
+  "device": "cuda",
+  "no_checkpointing": false,
+  "world": 4,
+  "global_batch": 256,
+  "steps": 9500,
+  "effective_train_labels": 999038753,
+  "data_fingerprint": {
+    "train": "bab5a5d3c3cf8d11bb0fc199c89d1999c0f35ffedd2ab21e421f99bde1260532",
+    "validation": "38b6cba9309369aff1e670284f51e90db32c533ac82bafe7988989b84da6eb74",
+    "test": "0dee0bded603c2af7d565b58ba8b6b0c868ee246bbd3addb94dd4cd601342eba"
+  },
+  "prepared_config_sha256": "bfd635851499a7d2025f76948df2d6cea6929138726230092502e34a54c31d95",
+  "native_code": {
+    "configuration_brujula_v2.py": "8f390a63a127cd1bfce9659f467a9d51e13e859f6fa8fd33655da865cee6525e",
+    "modeling_brujula_v2.py": "b158503a5ed86e5a43c442a78f98b12902a1d6c65542ce06819e01ba92e8074b"
+  },
+  "training_code": {
+    "train_pretrain.py": "5acb5945373f20f6bf59bc14bb08cf51313b41b730831ee8088696acd49b1299",
+    "pretrain_core.py": "b4fa19bba3358e380eb8532fca92cb5f7d169e36c56eb7f83a34ecc9910a9e29",
+    "acp_common.py": "6f8bc259986647805e1424c62aa7925b6f8575be619a3395a358d7c219ab5eb3"
+  }
+}

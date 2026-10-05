@@ -1,0 +1,48 @@
+{
+  "vocab_size": 50257,
+  "n_embd": 816,
+  "n_head": 6,
+  "n_layer": 18,
+  "block_size": 1024,
+  "kv_compression_dim": 64,
+  "q_compression_dim": 192,
+  "dropout": 0.0,
+  "rope_base": 10000,
+  "residual": "attnres_full",
+  "attnres_block_size": 4,
+  "rope_scaling_method": null,
+  "rope_scale_len": 1024,
+  "rope_trained_len": 1024,
+  "hidden_size": 816,
+  "num_attention_heads": 6,
+  "num_hidden_layers": 18,
+  "max_position_embeddings": 1024,
+  "transformers_version": "5.16.1",
+  "architectures": [
+    "BrujulaForCausalLM"
+  ],
+  "output_hidden_states": false,
+  "return_dict": true,
+  "dtype": "float32",
+  "chunk_size_feed_forward": 0,
+  "is_encoder_decoder": false,
+  "id2label": {
+    "0": "LABEL_0",
+    "1": "LABEL_1"
+  },
+  "label2id": {
+    "LABEL_0": 0,
+    "LABEL_1": 1
+  },
+  "problem_type": null,
+  "_name_or_path": "",
+  "bos_token_id": 50256,
+  "eos_token_id": 50256,
+  "tie_word_embeddings": true,
+  "auto_map": {
+    "AutoConfig": "configuration_brujula_v2.BrujulaConfig",
+    "AutoModelForCausalLM": "modeling_brujula_v2.BrujulaForCausalLM"
+  },
+  "model_type": "brujula",
+  "output_attentions": false
+}

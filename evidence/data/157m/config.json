@@ -1,0 +1,580 @@
+{
+  "repo": "HuggingFaceFW/fineweb-edu",
+  "revision": "87f09149ef4734204d70ed1d046ddc9ca3f2b8f9",
+  "mode": "all-documents",
+  "data": "<LOCAL_PATH_37e6fb0701cc>",
+  "tokenizer": "<LOCAL_PATH_12f293f981be>",
+  "tokenizer_sha256": {
+    "tokenizer.json": "1fe93b6152957cf9cfd6d89002467f789ce8b3f3e000b3a2edf27c808ddd0b9e",
+    "tokenizer_config.json": "17e312e0087310b49a0884cd2c9c96876dee84a7dd9ccced056abf98331f0f25"
+  },
+  "code_sha256": "2f581c7fa84282feb8a5cf2799287c2aa7c3c5144bf3ae3fd8d583e70c3d5600",
+  "helper_sha256": "e92872cd78de7070f8a43423442ee063195019f125eec3201c5a94edb7cdaee2",
+  "exclusions": {
+    "<LOCAL_PATH_64faa969fb30>": "e754e75206d8696e606a5cf54204aadee954f70d5e8359ef1849466982e362b6",
+    "<LOCAL_PATH_32230eeac610>": "946e2ef7f2981e4b59314f8c794292fa73e94f1efd698a1f724485a78b9d256c"
+  },
+  "files": [
+    {
+      "name": "sample/100BT/000_00000.parquet",
+      "bytes": 2153444469
+    },
+    {
+      "name": "sample/100BT/000_00001.parquet",
+      "bytes": 2152716615
+    },
+    {
+      "name": "sample/100BT/000_00002.parquet",
+      "bytes": 2152829440
+    },
+    {
+      "name": "sample/100BT/000_00003.parquet",
+      "bytes": 2151532316
+    },
+    {
+      "name": "sample/100BT/000_00004.parquet",
+      "bytes": 2151238351
+    },
+    {
+      "name": "sample/100BT/000_00005.parquet",
+      "bytes": 2152630983
+    },
+    {
+      "name": "sample/100BT/000_00006.parquet",
+      "bytes": 2150872058
+    },
+    {
+      "name": "sample/100BT/000_00007.parquet",
+      "bytes": 2150919214
+    },
+    {
+      "name": "sample/100BT/000_00008.parquet",
+      "bytes": 2151989277
+    },
+    {
+      "name": "sample/100BT/000_00009.parquet",
+      "bytes": 2150824077
+    },
+    {
+      "name": "sample/100BT/001_00000.parquet",
+      "bytes": 2153082292
+    },
+    {
+      "name": "sample/100BT/001_00001.parquet",
+      "bytes": 2152454612
+    },
+    {
+      "name": "sample/100BT/001_00002.parquet",
+      "bytes": 2153433162
+    },
+    {
+      "name": "sample/100BT/001_00003.parquet",
+      "bytes": 2153035941
+    },
+    {
+      "name": "sample/100BT/001_00004.parquet",
+      "bytes": 2151634678
+    },
+    {
+      "name": "sample/100BT/001_00005.parquet",
+      "bytes": 2151681049
+    },
+    {
+      "name": "sample/100BT/001_00006.parquet",
+      "bytes": 2152289650
+    },
+    {
+      "name": "sample/100BT/001_00007.parquet",
+      "bytes": 2152010940
+    },
+    {
+      "name": "sample/100BT/001_00008.parquet",
+      "bytes": 2152393119
+    },
+    {
+      "name": "sample/100BT/001_00009.parquet",
+      "bytes": 2152891815
+    },
+    {
+      "name": "sample/100BT/002_00000.parquet",
+      "bytes": 2151897391
+    },
+    {
+      "name": "sample/100BT/002_00001.parquet",
+      "bytes": 2151671407
+    },
+    {
+      "name": "sample/100BT/002_00002.parquet",
+      "bytes": 2151150989
+    },
+    {
+      "name": "sample/100BT/002_00003.parquet",
+      "bytes": 2151434381
+    },
+    {
+      "name": "sample/100BT/002_00004.parquet",
+      "bytes": 2150751835
+    },
+    {
+      "name": "sample/100BT/002_00005.parquet",
+      "bytes": 2152811934
+    },
+    {
+      "name": "sample/100BT/002_00006.parquet",
+      "bytes": 2152081882
+    },
+    {
+      "name": "sample/100BT/002_00007.parquet",
+      "bytes": 2152237659
+    },
+    {
+      "name": "sample/100BT/002_00008.parquet",
+      "bytes": 2152594227
+    },
+    {
+      "name": "sample/100BT/002_00009.parquet",
+      "bytes": 2151898537
+    },
+    {
+      "name": "sample/100BT/003_00000.parquet",
+      "bytes": 2151621817
+    },
+    {
+      "name": "sample/100BT/003_00001.parquet",
+      "bytes": 2152532221
+    },
+    {
+      "name": "sample/100BT/003_00002.parquet",
+      "bytes": 2152469007
+    },
+    {
+      "name": "sample/100BT/003_00003.parquet",
+      "bytes": 2151776296
+    },
+    {
+      "name": "sample/100BT/003_00004.parquet",
+      "bytes": 2151543898
+    },
+    {
+      "name": "sample/100BT/003_00005.parquet",
+      "bytes": 2151820572
+    },
+    {
+      "name": "sample/100BT/003_00006.parquet",
+      "bytes": 2152409768
+    },
+    {
+      "name": "sample/100BT/003_00007.parquet",
+      "bytes": 2151978423
+    },
+    {
+      "name": "sample/100BT/003_00008.parquet",
+      "bytes": 2150559471
+    },
+    {
+      "name": "sample/100BT/003_00009.parquet",
+      "bytes": 2151098528
+    },
+    {
+      "name": "sample/100BT/004_00000.parquet",
+      "bytes": 2153002740
+    },
+    {
+      "name": "sample/100BT/004_00001.parquet",
+      "bytes": 2153291928
+    },
+    {
+      "name": "sample/100BT/004_00002.parquet",
+      "bytes": 2153053448
+    },
+    {
+      "name": "sample/100BT/004_00003.parquet",
+      "bytes": 2151470830
+    },
+    {
+      "name": "sample/100BT/004_00004.parquet",
+      "bytes": 2153294237
+    },
+    {
+      "name": "sample/100BT/004_00005.parquet",
+      "bytes": 2152575246
+    },
+    {
+      "name": "sample/100BT/004_00006.parquet",
+      "bytes": 2150848076
+    },
+    {
+      "name": "sample/100BT/004_00007.parquet",
+      "bytes": 2152886435
+    },
+    {
+      "name": "sample/100BT/004_00008.parquet",
+      "bytes": 2151220422
+    },
+    {
+      "name": "sample/100BT/004_00009.parquet",
+      "bytes": 2150892501
+    },
+    {
+      "name": "sample/100BT/005_00000.parquet",
+      "bytes": 2150708561
+    },
+    {
+      "name": "sample/100BT/005_00001.parquet",
+      "bytes": 2151500293
+    },
+    {
+      "name": "sample/100BT/005_00002.parquet",
+      "bytes": 2150936398
+    },
+    {
+      "name": "sample/100BT/005_00003.parquet",
+      "bytes": 2151166424
+    },
+    {
+      "name": "sample/100BT/005_00004.parquet",
+      "bytes": 2151637485
+    },
+    {
+      "name": "sample/100BT/005_00005.parquet",
+      "bytes": 2153145072
+    },
+    {
+      "name": "sample/100BT/005_00006.parquet",
+      "bytes": 2152580193
+    },
+    {
+      "name": "sample/100BT/005_00007.parquet",
+      "bytes": 2153303408
+    },
+    {
+      "name": "sample/100BT/005_00008.parquet",
+      "bytes": 2153302599
+    },
+    {
+      "name": "sample/100BT/005_00009.parquet",
+      "bytes": 2152031536
+    },
+    {
+      "name": "sample/100BT/006_00000.parquet",
+      "bytes": 2151173759
+    },
+    {
+      "name": "sample/100BT/006_00001.parquet",
+      "bytes": 2152105444
+    },
+    {
+      "name": "sample/100BT/006_00002.parquet",
+      "bytes": 2153360191
+    },
+    {
+      "name": "sample/100BT/006_00003.parquet",
+      "bytes": 2153401374
+    },
+    {
+      "name": "sample/100BT/006_00004.parquet",
+      "bytes": 2152464846
+    },
+    {
+      "name": "sample/100BT/006_00005.parquet",
+      "bytes": 2150812800
+    },
+    {
+      "name": "sample/100BT/006_00006.parquet",
+      "bytes": 2153385904
+    },
+    {
+      "name": "sample/100BT/006_00007.parquet",
+      "bytes": 2153420855
+    },
+    {
+      "name": "sample/100BT/006_00008.parquet",
+      "bytes": 2152428323
+    },
+    {
+      "name": "sample/100BT/006_00009.parquet",
+      "bytes": 2152932646
+    },
+    {
+      "name": "sample/100BT/007_00000.parquet",
+      "bytes": 2153009115
+    },
+    {
+      "name": "sample/100BT/007_00001.parquet",
+      "bytes": 2152021786
+    },
+    {
+      "name": "sample/100BT/007_00002.parquet",
+      "bytes": 2151133584
+    },
+    {
+      "name": "sample/100BT/007_00003.parquet",
+      "bytes": 2151597441
+    },
+    {
+      "name": "sample/100BT/007_00004.parquet",
+      "bytes": 2151524072
+    },
+    {
+      "name": "sample/100BT/007_00005.parquet",
+      "bytes": 2150552642
+    },
+    {
+      "name": "sample/100BT/007_00006.parquet",
+      "bytes": 2153194366
+    },
+    {
+      "name": "sample/100BT/007_00007.parquet",
+      "bytes": 2152609562
+    },
+    {
+      "name": "sample/100BT/007_00008.parquet",
+      "bytes": 2151691660
+    },
+    {
+      "name": "sample/100BT/007_00009.parquet",
+      "bytes": 2150969434
+    },
+    {
+      "name": "sample/100BT/008_00000.parquet",
+      "bytes": 2151138399
+    },
+    {
+      "name": "sample/100BT/008_00001.parquet",
+      "bytes": 2150598151
+    },
+    {
+      "name": "sample/100BT/008_00002.parquet",
+      "bytes": 2151279431
+    },
+    {
+      "name": "sample/100BT/008_00003.parquet",
+      "bytes": 2150642725
+    },
+    {
+      "name": "sample/100BT/008_00004.parquet",
+      "bytes": 2150737656
+    },
+    {
+      "name": "sample/100BT/008_00005.parquet",
+      "bytes": 2152582259
+    },
+    {
+      "name": "sample/100BT/008_00006.parquet",
+      "bytes": 2152453034
+    },
+    {
+      "name": "sample/100BT/008_00007.parquet",
+      "bytes": 2152831030
+    },
+    {
+      "name": "sample/100BT/008_00008.parquet",
+      "bytes": 2152346868
+    },
+    {
+      "name": "sample/100BT/008_00009.parquet",
+      "bytes": 2151644920
+    },
+    {
+      "name": "sample/100BT/009_00000.parquet",
+      "bytes": 2152870180
+    },
+    {
+      "name": "sample/100BT/009_00001.parquet",
+      "bytes": 2150826267
+    },
+    {
+      "name": "sample/100BT/009_00002.parquet",
+      "bytes": 2152785235
+    },
+    {
+      "name": "sample/100BT/009_00003.parquet",
+      "bytes": 2152793292
+    },
+    {
+      "name": "sample/100BT/009_00004.parquet",
+      "bytes": 2150735027
+    },
+    {
+      "name": "sample/100BT/009_00005.parquet",
+      "bytes": 2152442675
+    },
+    {
+      "name": "sample/100BT/009_00006.parquet",
+      "bytes": 2151220022
+    },
+    {
+      "name": "sample/100BT/009_00007.parquet",
+      "bytes": 2150434934
+    },
+    {
+      "name": "sample/100BT/009_00008.parquet",
+      "bytes": 2150413813
+    },
+    {
+      "name": "sample/100BT/009_00009.parquet",
+      "bytes": 2150747289
+    },
+    {
+      "name": "sample/100BT/010_00000.parquet",
+      "bytes": 2151571678
+    },
+    {
+      "name": "sample/100BT/010_00001.parquet",
+      "bytes": 2151236248
+    },
+    {
+      "name": "sample/100BT/010_00002.parquet",
+      "bytes": 2150569557
+    },
+    {
+      "name": "sample/100BT/010_00003.parquet",
+      "bytes": 2150341172
+    },
+    {
+      "name": "sample/100BT/010_00004.parquet",
+      "bytes": 2152703186
+    },
+    {
+      "name": "sample/100BT/010_00005.parquet",
+      "bytes": 2151197012
+    },
+    {
+      "name": "sample/100BT/010_00006.parquet",
+      "bytes": 2150869474
+    },
+    {
+      "name": "sample/100BT/010_00007.parquet",
+      "bytes": 2152353010
+    },
+    {
+      "name": "sample/100BT/010_00008.parquet",
+      "bytes": 2150821210
+    },
+    {
+      "name": "sample/100BT/010_00009.parquet",
+      "bytes": 2151745378
+    },
+    {
+      "name": "sample/100BT/011_00000.parquet",
+      "bytes": 2150983433
+    },
+    {
+      "name": "sample/100BT/011_00001.parquet",
+      "bytes": 2151833168
+    },
+    {
+      "name": "sample/100BT/011_00002.parquet",
+      "bytes": 2150635926
+    },
+    {
+      "name": "sample/100BT/011_00003.parquet",
+      "bytes": 2152670300
+    },
+    {
+      "name": "sample/100BT/011_00004.parquet",
+      "bytes": 2151487097
+    },
+    {
+      "name": "sample/100BT/011_00005.parquet",
+      "bytes": 2151541011
+    },
+    {
+      "name": "sample/100BT/011_00006.parquet",
+      "bytes": 2152614900
+    },
+    {
+      "name": "sample/100BT/011_00007.parquet",
+      "bytes": 2152992454
+    },
+    {
+      "name": "sample/100BT/011_00008.parquet",
+      "bytes": 2153390140
+    },
+    {
+      "name": "sample/100BT/011_00009.parquet",
+      "bytes": 2152799518
+    },
+    {
+      "name": "sample/100BT/012_00000.parquet",
+      "bytes": 2151175692
+    },
+    {
+      "name": "sample/100BT/012_00001.parquet",
+      "bytes": 2152085272
+    },
+    {
+      "name": "sample/100BT/012_00002.parquet",
+      "bytes": 2150577007
+    },
+    {
+      "name": "sample/100BT/012_00003.parquet",
+      "bytes": 2153309654
+    },
+    {
+      "name": "sample/100BT/012_00004.parquet",
+      "bytes": 2152431260
+    },
+    {
+      "name": "sample/100BT/012_00005.parquet",
+      "bytes": 2153266763
+    },
+    {
+      "name": "sample/100BT/012_00006.parquet",
+      "bytes": 2150459731
+    },
+    {
+      "name": "sample/100BT/012_00007.parquet",
+      "bytes": 2151129707
+    },
+    {
+      "name": "sample/100BT/012_00008.parquet",
+      "bytes": 2150448824
+    },
+    {
+      "name": "sample/100BT/012_00009.parquet",
+      "bytes": 2151070619
+    },
+    {
+      "name": "sample/100BT/013_00000.parquet",
+      "bytes": 730198774
+    },
+    {
+      "name": "sample/100BT/013_00001.parquet",
+      "bytes": 743123195
+    },
+    {
+      "name": "sample/100BT/013_00002.parquet",
+      "bytes": 720295268
+    },
+    {
+      "name": "sample/100BT/013_00003.parquet",
+      "bytes": 702232373
+    },
+    {
+      "name": "sample/100BT/013_00004.parquet",
+      "bytes": 705597730
+    },
+    {
+      "name": "sample/100BT/013_00005.parquet",
+      "bytes": 692526551
+    },
+    {
+      "name": "sample/100BT/013_00006.parquet",
+      "bytes": 758099222
+    },
+    {
+      "name": "sample/100BT/013_00007.parquet",
+      "bytes": 209335613
+    },
+    {
+      "name": "sample/100BT/013_00008.parquet",
+      "bytes": 673400814
+    },
+    {
+      "name": "sample/100BT/013_00009.parquet",
+      "bytes": 710997519
+    }
+  ],
+  "split": "nfkc-whitespace-sha256-v1; buckets 0-9 validation, 10-19 test, 20-999 train"
+}
