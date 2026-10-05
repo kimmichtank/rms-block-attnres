@@ -30,6 +30,8 @@ Each source enters the sum at the same RMS, while alignment and cancellation bet
 
 In the released implementation, this normalization happens when a block is completed. The current incomplete block and the embedding remain raw.
 
+For the full motivation, derivation, diagnostic experiments, and scaling results, see the [research note](https://zhuanlan.zhihu.com/p/2090653561252328173).
+
 ## Results
 
 We compare Full AttnRes, Block AttnRes, and RMS Block AttnRes. The block size used in these experiments is $S=4$ residual outputs.
