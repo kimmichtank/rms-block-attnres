@@ -4,7 +4,7 @@ Code, results, and reproduction instructions for **RMS Block AttnRes**.
 
 ## Intuition
 
-Block AttnRes compresses several residual outputs by adding their raw vectors. The problem is that an output with a larger RMS then has more influence on the direction of the compressed representation, even when its larger magnitude does not make it more informative. Normalizing the completed sum cannot undo this relative weighting.
+Block AttnRes compresses several residual outputs by adding their raw vectors. The problem is that an output with a larger RMS then has more influence on the direction of the compressed representation. Normalizing the completed sum cannot undo this relative weighting.
 
 RMS Block fixes the problem by RMS-normalizing each output before it is added to a completed block. Compression therefore combines normalized directions instead of weighting those directions by their original magnitudes.
 
