@@ -14,7 +14,7 @@ $$
 b_B=\sum_{i\in B}y_i.
 $$
 
-Writing each output as $y_i=r_i u_i$, where $r_i=\operatorname{RMS}(y_i)$ and $u_i=\operatorname{RMSNorm}(y_i)$, gives
+Writing each output as $y_i=r_i u_i$, where $r_i$ is the RMS of $y_i$ and $u_i$ is its unit-RMS direction, gives
 
 $$
 b_B=\sum_{i\in B}r_i u_i.
@@ -23,7 +23,7 @@ $$
 RMS Block changes the completed-block summary to
 
 $$
-b_B^{\mathrm{RMS}}=\sum_{i\in B}\operatorname{RMSNorm}(y_i)=\sum_{i\in B}u_i.
+b_B^{\mathrm{RMS}}=\sum_{i\in B}u_i.
 $$
 
 Each source enters the sum at the same RMS, while alignment and cancellation between directions remain intact.

@@ -20,7 +20,7 @@ All readers have a learned zero-initialized pseudo-query $w_l$, so initial sourc
 **Full** stores the embedding and each attention/FFN output separately. The read is
 
 $$
-\alpha_{i\to l}=\operatorname{softmax}_i(w_l^\top K_l(y_i)),\qquad
+\alpha_{i\to l}=\frac{\exp(w_l^\top K_l(y_i))}{\sum_j\exp(w_l^\top K_l(y_j))},\qquad
 h_l=\sum_i\alpha_{i\to l}y_i.
 $$
 

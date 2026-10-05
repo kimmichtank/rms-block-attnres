@@ -204,7 +204,7 @@ Only after the frozen tests, run matched 57M training with:
 
 - raw Block: $\sum_i r_i u_i$;
 - RMS Block: $\sum_i u_i$;
-- fixed layer/type calibration: $\sum_i y_i/\operatorname{median}(r_i\mid\text{layer,type})$;
+- fixed layer/type calibration: $\sum_i y_i/m_{\ell(i),t(i)}$, where $m_{\ell,t}$ is the median source RMS for layer $\ell$ and module type $t$;
 - exponent interpolation: $\sum_i r_i^\gamma u_i$ for a small prespecified set between $\gamma=0$ and $\gamma=1$;
 - post-sum normalization of the raw summary, which removes completed-block scale but preserves raw within-block direction.
 
